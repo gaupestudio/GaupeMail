@@ -1,0 +1,32 @@
+{
+  "name": "gaupemail",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.9.1",
+    "@prisma/client": "^7.9.1",
+    "@simplewebauthn/browser": "^13.3.0",
+    "@simplewebauthn/server": "^13.3.2",
+    "@tailwindcss/vite": "^4.3.3",
+    "nuxt": "^4.5.2",
+    "pg": "^8.23.0",
+    "postal-mime": "^3.0.0",
+    "sanitize-html": "^2.17.7",
+    "tailwindcss": "^4.3.3",
+    "vue": "^3.5.41",
+    "vue-router": "^5.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "@types/pg": "^8.23.1",
+    "@types/sanitize-html": "^2.16.1",
+    "prisma": "^7.9.1"
+  }
+}

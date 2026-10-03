@@ -1,0 +1,117 @@
+// GaupeMail — private mail system for the Gaupestudio "organization" (hardcoded).
+// Docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client"
+  output   = "../server/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique // login handle
+  displayName String?
+  isAdmin     Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  passkeys    Passkey[]
+  sessions    Session[]
+  mailboxes   Mailbox[]
+}
+
+model Passkey {
+  id           Int       @id @default(autoincrement())
+  userId       Int
+  user         User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  credentialId String    @unique
+  publicKey    Bytes
+  counter      BigInt    @default(0)
+  deviceType   String
+  backedUp     Boolean
+  transports   String[]
+  name         String?
+  createdAt    DateTime  @default(now())
+  lastUsedAt   DateTime?
+}
+
+model Session {
+  id        String   @id
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+// A domain we can send from. Each domain carries its own Cloudflare
+// credentials (account id + API token with the "Send Email" permission),
+// uploaded in the settings panel.
+model Domain {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique // magnux.dk
+  cfAccountId String
+  cfApiToken  String
+  createdAt   DateTime  @default(now())
+  mailboxes   Mailbox[]
+}
+
+// An address on a domain, owned by exactly one user. Created in the admin panel.
+model Mailbox {
+  id            Int      @id @default(autoincrement())
+  address       String   @unique // hello@magnux.dk
+  label         String?
+  signatureHtml String? // appended to every outbound message from this mailbox
+  domainId      Int
+  domain        Domain   @relation(fields: [domainId], references: [id], onDelete: Cascade)
+  userId        Int
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt     DateTime @default(now())
+  mails         Mail[]
+}
+
+enum MailDirection {
+  INBOUND
+  OUTBOUND
+}
+
+model Mail {
+  id          Int           @id @default(autoincrement())
+  direction   MailDirection @default(INBOUND)
+  messageId   String?       @unique
+  from        String
+  fromName    String?
+  to          String
+  cc          String? // original Cc line, for reply-all
+  subject     String
+  bodyText    String?
+  bodyHTML    String?
+  read        Boolean       @default(false)
+  starred     Boolean       @default(false)
+  deletedAt   DateTime?
+  receivedAt  DateTime      @default(now())
+  mailboxId   Int
+  mailbox     Mailbox       @relation(fields: [mailboxId], references: [id], onDelete: Cascade)
+  attachments Attachment[]
+
+  @@index([mailboxId, receivedAt])
+  @@index([mailboxId, deletedAt])
+}
+
+model Attachment {
+  id          Int    @id @default(autoincrement())
+  mailId      Int
+  mail        Mail   @relation(fields: [mailId], references: [id], onDelete: Cascade)
+  filename    String
+  contentType String
+  size        Int
+  data        Bytes
+}
+
+// Org-wide key/value settings for the single Gaupestudio "organization".
+// e.g. key "orgFooterHtml" — HTML appended to every outbound message.
+model Setting {
+  key       String   @id
+  value     String
+  updatedAt DateTime @updatedAt
+}

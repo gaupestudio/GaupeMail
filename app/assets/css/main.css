@@ -1,0 +1,138 @@
+@import "tailwindcss";
+
+/* GaupeMail theme — red accent */
+@theme {
+  --color-brand-50: #fef2f2;
+  --color-brand-100: #fee2e2;
+  --color-brand-200: #fecaca;
+  --color-brand-300: #fca5a5;
+  --color-brand-400: #f87171;
+  --color-brand-500: #ef4444;
+  --color-brand-600: #e11d2e;
+  --color-brand-700: #b91c1c;
+  --color-brand-800: #991b1b;
+  --color-brand-900: #7f1d1d;
+}
+
+html,
+body,
+#__nuxt {
+  height: 100%;
+}
+
+body {
+  background: #fafafa;
+  color: #171717;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-brand-200);
+}
+
+/* Google Material Symbols */
+.material-symbols-rounded {
+  font-family: 'Material Symbols Rounded';
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  vertical-align: middle;
+}
+
+/* thin, quiet scrollbars */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #d4d4d4 transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-thumb {
+  background: #d4d4d4;
+  border-radius: 9999px;
+}
+
+/* ---------- transitions ---------- */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.18s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+.drawer-enter-active,
+.drawer-leave-active {
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.drawer-enter-from,
+.drawer-leave-to {
+  transform: translateX(100%);
+}
+
+.pop-enter-active {
+  transition: opacity 0.16s ease, transform 0.16s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+.pop-leave-active {
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+.pop-enter-from,
+.pop-leave-to {
+  opacity: 0;
+  transform: translateY(10px) scale(0.97);
+}
+
+.list-move,
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.28s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.list-enter-from {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+.list-leave-to {
+  opacity: 0;
+  transform: translateX(24px);
+}
+.list-leave-active {
+  position: absolute;
+  width: 100%;
+}
+
+.reveal-enter-active {
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+.reveal-enter-from {
+  opacity: 0;
+  transform: translateY(8px);
+}
+
+@keyframes pop {
+  0% { transform: scale(1); }
+  45% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+.animate-pop {
+  animation: pop 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

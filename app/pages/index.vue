@@ -7,6 +7,7 @@ const titles: Record<string, string> = {
   inbox: 'Inbox',
   starred: 'Starred',
   sent: 'Sent Items',
+  spam: 'Spam',
   trash: 'Trash',
 };
 
@@ -80,6 +81,17 @@ async function trash(id: number) {
     actionError.value = `Couldn't move to trash: ${errMsg(e)}`;
   }
 }
+async function setSpam(id: number, spam: boolean) {
+  actionError.value = null;
+  try {
+    await $fetch(`/api/mails/${id}`, { method: 'PATCH', body: { spam } });
+    if (filter.value === 'inbox' || filter.value === 'spam') dropRow(id);
+    else if (open.value && open.value.id === id) open.value = { ...open.value, spam };
+    loadMailboxes(true);
+  } catch (e) {
+    actionError.value = `Couldn't ${spam ? 'mark as spam' : 'move to inbox'}: ${errMsg(e)}`;
+  }
+}
 async function restore(id: number) {
   actionError.value = null;
   try {
@@ -136,6 +148,7 @@ async function destroy(id: number) {
         :star-busy="starBusy"
         @star="setStar"
         @trash="trash"
+        @spam="setSpam"
         @restore="restore"
         @destroy="destroy"
         @close="selectedId = null"

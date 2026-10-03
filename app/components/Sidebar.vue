@@ -13,6 +13,7 @@ const nav: { key: MailFilter; label: string; icon: string }[] = [
   { key: 'inbox', label: 'Inbox', icon: 'inbox' },
   { key: 'starred', label: 'Starred', icon: 'star' },
   { key: 'sent', label: 'Sent Items', icon: 'send' },
+  { key: 'spam', label: 'Spam', icon: 'report' },
   { key: 'trash', label: 'Trash', icon: 'delete' },
 ];
 

@@ -45,6 +45,9 @@ export default defineNuxtConfig({
     // WebAuthn / passkeys. rpId must match the browser hostname (no port/scheme).
     webauthnRpId: 'localhost',
     webauthnRpName: 'GaupeMail',
-    webauthnOrigin: 'http://localhost:3000'
+    webauthnOrigin: 'http://localhost:3000',
+    // Command that reads a raw message on stdin and prints `score/threshold`
+    // (e.g. `spamc -c`). Empty disables spam filtering.
+    spamAssassinFile: '',
   },
 });

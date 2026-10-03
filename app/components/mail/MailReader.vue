@@ -10,6 +10,7 @@ defineProps<{
 defineEmits<{
   star: [id: number, starred: boolean];
   trash: [id: number];
+  spam: [id: number, spam: boolean];
   restore: [id: number];
   destroy: [id: number];
   close: [];
@@ -30,6 +31,7 @@ defineEmits<{
           :star-busy="starBusy"
           @star="(s) => $emit('star', mail!.id, s)"
           @trash="$emit('trash', mail.id)"
+          @spam="(s) => $emit('spam', mail!.id, s)"
           @restore="$emit('restore', mail.id)"
           @destroy="$emit('destroy', mail.id)"
           @close="$emit('close')"

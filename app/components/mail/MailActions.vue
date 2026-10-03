@@ -5,6 +5,7 @@ const props = defineProps<{ mail: MailDetail; starBusy: boolean }>();
 const emit = defineEmits<{
   star: [starred: boolean];
   trash: [];
+  spam: [spam: boolean];
   restore: [];
   destroy: [];
   close: [];
@@ -58,6 +59,19 @@ const btn =
     >
       <Icon name="star" :size="16" :fill="mail.starred" />
       {{ mail.starred ? 'Starred' : 'Star' }}
+    </button>
+    <button
+      v-if="mail.direction === 'INBOUND' && !mail.deleted"
+      :class="btn"
+      :title="mail.spamScore != null ? `SpamAssassin score ${mail.spamScore}` : undefined"
+      @click="emit('spam', !mail.spam)"
+    >
+      <template v-if="mail.spam">
+        <Icon name="move_to_inbox" :size="16" /> Not spam
+      </template>
+      <template v-else>
+        <Icon name="report" :size="16" /> <span class="hidden sm:inline">Spam</span>
+      </template>
     </button>
     <button v-if="!mail.deleted" :class="[btn, 'hover:text-brand-600']" @click="emit('trash')">
       <Icon name="delete" :size="16" /> <span class="hidden sm:inline">Trash</span>

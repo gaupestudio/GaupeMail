@@ -88,6 +88,8 @@ model Mail {
   bodyHTML    String?
   read        Boolean       @default(false)
   starred     Boolean       @default(false)
+  spam        Boolean       @default(false)
+  spamScore   Float? // SpamAssassin score, null if not checked
   deletedAt   DateTime?
   receivedAt  DateTime      @default(now())
   mailboxId   Int

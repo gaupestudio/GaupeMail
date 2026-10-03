@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Mail" ADD COLUMN     "spam" BOOLEAN NOT NULL DEFAULT false,
+ADD COLUMN     "spamScore" DOUBLE PRECISION;

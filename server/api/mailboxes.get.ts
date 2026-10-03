@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
     include: {
       domain: { select: { name: true } },
       user: { select: { id: true, name: true } },
-      _count: { select: { mails: { where: { direction: 'INBOUND', read: false, deletedAt: null } } } },
+      _count: { select: { mails: { where: { direction: 'INBOUND', read: false, spam: false, deletedAt: null } } } },
     },
   });
 

@@ -1,7 +1,7 @@
 import type { Prisma } from '../generated/prisma/client';
 
 // List messages in one mailbox. `?mailboxId=` required, `?filter=` one of
-// inbox | starred | sent | trash (default inbox).
+// inbox | starred | sent | spam | trash (default inbox).
 export default defineEventHandler(async (event) => {
   const user = await requireUser(event);
   const q = getQuery(event);
@@ -17,7 +17,11 @@ export default defineEventHandler(async (event) => {
     where.deletedAt = null;
     if (filter === 'starred') where.starred = true;
     else if (filter === 'sent') where.direction = 'OUTBOUND';
-    else where.direction = 'INBOUND';
+    else if (filter === 'spam') where.spam = true;
+    else {
+      where.direction = 'INBOUND';
+      where.spam = false;
+    }
   }
 
   const mails = await prisma.mail.findMany({

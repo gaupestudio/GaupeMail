@@ -1,4 +1,4 @@
-export type MailFilter = 'inbox' | 'starred' | 'sent' | 'trash';
+export type MailFilter = 'inbox' | 'starred' | 'sent' | 'spam' | 'trash';
 
 export interface Mailbox {
   id: number;
@@ -40,6 +40,8 @@ export interface MailDetail {
   receivedAt: string;
   starred: boolean;
   deleted: boolean;
+  spam: boolean;
+  spamScore: number | null;
   read: boolean;
   mailbox: string;
   attachments: { id: number; filename: string; contentType: string; size: number }[];

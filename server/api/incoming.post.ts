@@ -41,6 +41,8 @@ export default defineEventHandler(async (event) => {
     if (dupe) return { ok: true, id: dupe.id, duplicate: true };
   }
 
+  const spam = await checkSpamFiltering(raw);
+
   const mail = await prisma.mail.create({
     data: {
       direction: 'INBOUND',
@@ -52,6 +54,8 @@ export default defineEventHandler(async (event) => {
       subject: email.subject ?? '(no subject)',
       bodyText: email.text ?? null,
       bodyHTML: email.html ? cleanMailHtml(email.html) : null,
+      spam: spam?.isSpam ?? false,
+      spamScore: spam?.score ?? null,
       mailboxId: mailbox.id,
       attachments: {
         create: (email.attachments ?? []).map((a) => ({
@@ -68,5 +72,5 @@ export default defineEventHandler(async (event) => {
     },
   });
 
-  return { ok: true, id: mail.id, mailbox: mailbox.address };
+  return { ok: true, id: mail.id, mailbox: mailbox.address, spam: mail.spam, spamScore: mail.spamScore };
 });

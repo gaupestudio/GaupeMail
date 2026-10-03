@@ -31,6 +31,8 @@ export default defineEventHandler(async (event) => {
     receivedAt: mail.receivedAt,
     starred: mail.starred,
     deleted: !!mail.deletedAt,
+    spam: mail.spam,
+    spamScore: mail.spamScore,
     read: true,
     mailbox: mail.mailbox.address,
     attachments: mail.attachments,

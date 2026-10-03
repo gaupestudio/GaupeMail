@@ -11,8 +11,9 @@ export const splitAddr = (s: string | null | undefined) =>
     .map((x) => x.trim().replace(/^.*<(.+?)>.*$/, '$1'))
     .filter(Boolean);
 
-export function quoteBlock(o: MailDetail) {
-  const when = new Date(o.receivedAt).toLocaleString();
+// `header` builds the localized "On <when>, <who> wrote:" line.
+export function quoteBlock(o: MailDetail, header: (when: string, who: string) => string) {
   const inner = o.bodyHTML || `<div>${escapeHtml(o.bodyText || '').replace(/\n/g, '<br>')}</div>`;
-  return `<br><br><blockquote>On ${escapeHtml(when)}, ${escapeHtml(o.fromName || o.from)} wrote:<br><br>${inner}</blockquote>`;
+  const line = header(escapeHtml(fmtFull(o.receivedAt)), escapeHtml(o.fromName || o.from));
+  return `<br><br><blockquote>${line}<br><br>${inner}</blockquote>`;
 }

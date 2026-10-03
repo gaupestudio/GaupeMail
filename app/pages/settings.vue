@@ -3,12 +3,14 @@ interface Domain { id: number; name: string; cfAccountId: string; tokenHint: str
 interface UserRow { id: number; name: string; displayName: string | null; isAdmin: boolean; passkeys: number; mailboxes: number; enrolled: boolean }
 interface MailboxRow { id: number; address: string; label: string | null; signatureHtml: string | null; domain: string; owner: { id: number; name: string } }
 
+const { t } = useI18n();
+
 const { data: domains, refresh: rDomains } = useFetch<Domain[]>('/api/domains', { lazy: true, default: () => [] });
 const { data: users, refresh: rUsers } = useFetch<UserRow[]>('/api/users', { lazy: true, default: () => [] });
 const { data: boxes, refresh: rBoxes } = useFetch<MailboxRow[]>('/api/mailboxes', { query: { all: 1 }, lazy: true, default: () => [] });
 
 const err = ref<string | null>(null);
-const say = (e: any) => (err.value = e?.data?.message || e?.statusMessage || e?.message || 'failed');
+const say = (e: any) => (err.value = e?.data?.message || e?.statusMessage || e?.message || t('settings.failed'));
 
 // --- organization ---
 const { fetchOrg } = useOrg();
@@ -49,7 +51,7 @@ async function addDomain() {
   } catch (e) { say(e); }
 }
 async function delDomain(d: Domain) {
-  if (!confirm(`Delete ${d.name} and its ${d.mailboxes} mailbox(es)?`)) return;
+  if (!confirm(t('settings.domains.confirmDelete', { name: d.name, n: d.mailboxes }))) return;
   try { await $fetch(`/api/domains/${d.id}`, { method: 'DELETE' }); await rDomains(); await rBoxes(); }
   catch (e) { say(e); }
 }
@@ -61,7 +63,7 @@ async function addUser() {
   catch (e) { say(e); }
 }
 async function delUser(u: UserRow) {
-  if (!confirm(`Delete user ${u.name}?`)) return;
+  if (!confirm(t('settings.users.confirmDelete', { name: u.name }))) return;
   try { await $fetch(`/api/users/${u.id}`, { method: 'DELETE' }); await rUsers(); await rBoxes(); }
   catch (e) { say(e); }
 }
@@ -76,7 +78,7 @@ async function addBox() {
   } catch (e) { say(e); }
 }
 async function delBox(b: MailboxRow) {
-  if (!confirm(`Delete ${b.address}?`)) return;
+  if (!confirm(t('settings.mailboxes.confirmDelete', { address: b.address }))) return;
   try { await $fetch(`/api/mailboxes/${b.id}`, { method: 'DELETE' }); await rBoxes(); }
   catch (e) { say(e); }
 }
@@ -100,8 +102,8 @@ async function saveBox(id: number) {
 
 <template>
   <div class="mx-auto max-w-3xl px-5 py-8 sm:px-8">
-    <h1 class="mb-1 text-2xl font-bold tracking-tight">Settings</h1>
-    <p class="mb-8 text-sm text-neutral-400">{{ settings?.orgName || 'GaupeMail' }} · domains, users &amp; mailboxes</p>
+    <h1 class="mb-1 text-2xl font-bold tracking-tight">{{ t('settings.title') }}</h1>
+    <p class="mb-8 text-sm text-neutral-400">{{ t('settings.subtitle', { org: settings?.orgName || 'GaupeMail' }) }}</p>
 
     <Transition name="fade">
       <p v-if="err" class="mb-6 bg-brand-50 px-3 py-2 text-sm text-brand-700">{{ err }}</p>
@@ -110,15 +112,14 @@ async function saveBox(id: number) {
     <div class="space-y-10">
       <!-- Organization -->
       <section>
-        <h2 class="mb-1 text-xs font-semibold uppercase tracking-wide text-neutral-400">Organization</h2>
-        <p class="mb-3 text-xs text-neutral-500">
-          The <span class="font-medium">name</span> shows throughout the app. The
-          <span class="font-medium">email footer</span> is HTML appended to the bottom of every message sent
-          from any mailbox (after the per-mailbox footer, if set).
-        </p>
+        <h2 class="mb-1 text-xs font-semibold uppercase tracking-wide text-neutral-400">{{ t('settings.org.title') }}</h2>
+        <i18n-t keypath="settings.org.hint" tag="p" class="mb-3 text-xs text-neutral-500">
+          <template #name><span class="font-medium">{{ t('settings.org.nameTerm') }}</span></template>
+          <template #footer><span class="font-medium">{{ t('settings.org.footerTerm') }}</span></template>
+        </i18n-t>
         <div class="space-y-4 border border-neutral-200 bg-white p-4 shadow-sm">
           <div>
-            <label class="block text-xs font-medium text-neutral-500">Name</label>
+            <label class="block text-xs font-medium text-neutral-500">{{ t('settings.org.name') }}</label>
             <input
               v-model="orgName"
               placeholder="Gaupestudio"
@@ -126,7 +127,7 @@ async function saveBox(id: number) {
             />
           </div>
           <div>
-            <label class="block text-xs font-medium text-neutral-500">Email footer (HTML)</label>
+            <label class="block text-xs font-medium text-neutral-500">{{ t('settings.org.footer') }}</label>
             <textarea
               v-model="orgFooter"
               rows="5"
@@ -139,10 +140,10 @@ async function saveBox(id: number) {
               class="bg-brand-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-700 active:scale-95"
               @click="saveOrg"
             >
-              Save
+              {{ t('settings.save') }}
             </button>
             <Transition name="fade">
-              <span v-if="orgSaved" class="text-sm text-green-600">Saved ✓</span>
+              <span v-if="orgSaved" class="text-sm text-green-600">{{ t('settings.saved') }}</span>
             </Transition>
           </div>
         </div>
@@ -150,11 +151,10 @@ async function saveBox(id: number) {
 
       <!-- Domains -->
       <section>
-        <h2 class="mb-1 text-xs font-semibold uppercase tracking-wide text-neutral-400">Sending domains</h2>
-        <p class="mb-3 text-xs text-neutral-500">
-          Each domain uses its own Cloudflare account. Paste the account id and an API token with the
-          <span class="font-medium">Send Email</span> permission.
-        </p>
+        <h2 class="mb-1 text-xs font-semibold uppercase tracking-wide text-neutral-400">{{ t('settings.domains.title') }}</h2>
+        <i18n-t keypath="settings.domains.hint" tag="p" class="mb-3 text-xs text-neutral-500">
+          <template #permission><span class="font-medium">Send Email</span></template>
+        </i18n-t>
         <div class="overflow-hidden border border-neutral-200 bg-white shadow-sm">
           <div class="overflow-x-auto">
           <table class="w-full text-sm">
@@ -163,32 +163,30 @@ async function saveBox(id: number) {
                 <td class="px-4 py-2.5 font-medium">{{ d.name }}</td>
                 <td class="px-4 py-2.5 font-mono text-xs text-neutral-500">
                   {{ d.cfAccountId }}
-                  <span v-if="d.tokenHint" class="ml-1 text-neutral-400">· token {{ d.tokenHint }}</span>
+                  <span v-if="d.tokenHint" class="ml-1 text-neutral-400">· {{ t('settings.domains.token', { hint: d.tokenHint }) }}</span>
                 </td>
-                <td class="px-4 py-2.5 text-xs text-neutral-500">{{ d.mailboxes }} mailbox(es)</td>
+                <td class="px-4 py-2.5 text-xs text-neutral-500">{{ t('settings.mailboxCount', d.mailboxes) }}</td>
                 <td class="px-4 py-2.5 text-right">
-                  <button class="text-xs text-brand-600 transition hover:underline" @click="delDomain(d)">delete</button>
+                  <button class="text-xs text-brand-600 transition hover:underline" @click="delDomain(d)">{{ t('settings.delete') }}</button>
                 </td>
               </tr>
-              <tr v-if="!domains?.length"><td class="px-4 py-3 text-neutral-400" colspan="4">No domains.</td></tr>
+              <tr v-if="!domains?.length"><td class="px-4 py-3 text-neutral-400" colspan="4">{{ t('settings.domains.none') }}</td></tr>
             </tbody>
           </table>
           </div>
           <form class="flex flex-wrap gap-2 border-t border-neutral-100 bg-neutral-50/60 p-3" @submit.prevent="addDomain">
             <input v-model="nd.name" placeholder="example.com" class="w-44 border border-neutral-300 px-3 py-1.5 text-sm" />
-            <input v-model="nd.cfAccountId" placeholder="cloudflare account id" class="w-72 border border-neutral-300 px-3 py-1.5 font-mono text-xs" />
-            <input v-model="nd.cfApiToken" type="password" placeholder="API token (Send Email)" class="w-56 border border-neutral-300 px-3 py-1.5 text-sm" />
-            <button class="bg-brand-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-700 active:scale-95">Add</button>
+            <input v-model="nd.cfAccountId" :placeholder="t('settings.domains.accountId')" class="w-72 border border-neutral-300 px-3 py-1.5 font-mono text-xs" />
+            <input v-model="nd.cfApiToken" type="password" :placeholder="t('settings.domains.apiToken')" class="w-56 border border-neutral-300 px-3 py-1.5 text-sm" />
+            <button class="bg-brand-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-700 active:scale-95">{{ t('settings.add') }}</button>
           </form>
         </div>
       </section>
 
       <!-- Users -->
       <section>
-        <h2 class="mb-1 text-xs font-semibold uppercase tracking-wide text-neutral-400">Users</h2>
-        <p class="mb-3 text-xs text-neutral-500">
-          New users enroll their own passkey from the sign-in page (allowed until they have one).
-        </p>
+        <h2 class="mb-1 text-xs font-semibold uppercase tracking-wide text-neutral-400">{{ t('settings.users.title') }}</h2>
+        <p class="mb-3 text-xs text-neutral-500">{{ t('settings.users.hint') }}</p>
         <div class="overflow-hidden border border-neutral-200 bg-white shadow-sm">
           <div class="overflow-x-auto">
           <table class="w-full text-sm">
@@ -199,35 +197,35 @@ async function saveBox(id: number) {
                   <span v-if="u.displayName" class="text-neutral-400">· {{ u.displayName }}</span>
                 </td>
                 <td class="px-4 py-2.5 text-xs">
-                  <span v-if="u.isAdmin" class="bg-brand-100 px-1.5 py-0.5 font-medium text-brand-700">admin</span>
+                  <span v-if="u.isAdmin" class="bg-brand-100 px-1.5 py-0.5 font-medium text-brand-700">{{ t('settings.users.admin') }}</span>
                 </td>
                 <td class="px-4 py-2.5 text-xs" :class="u.enrolled ? 'text-green-600' : 'text-amber-600'">
-                  {{ u.enrolled ? `${u.passkeys} passkey(s)` : 'not enrolled' }}
+                  {{ u.enrolled ? t('settings.users.passkeyCount', u.passkeys) : t('settings.users.notEnrolled') }}
                 </td>
-                <td class="px-4 py-2.5 text-xs text-neutral-500">{{ u.mailboxes }} mailbox(es)</td>
+                <td class="px-4 py-2.5 text-xs text-neutral-500">{{ t('settings.mailboxCount', u.mailboxes) }}</td>
                 <td class="px-4 py-2.5 text-right">
-                  <button class="text-xs text-brand-600 transition hover:underline" @click="delUser(u)">delete</button>
+                  <button class="text-xs text-brand-600 transition hover:underline" @click="delUser(u)">{{ t('settings.delete') }}</button>
                 </td>
               </tr>
             </tbody>
           </table>
           </div>
           <form class="flex flex-wrap items-center gap-2 border-t border-neutral-100 bg-neutral-50/60 p-3" @submit.prevent="addUser">
-            <input v-model="nu.name" placeholder="username" class="w-40 border border-neutral-300 px-3 py-1.5 text-sm" />
-            <input v-model="nu.displayName" placeholder="display name" class="w-44 border border-neutral-300 px-3 py-1.5 text-sm" />
-            <label class="flex items-center gap-1.5 text-sm text-neutral-600"><input v-model="nu.isAdmin" type="checkbox" class="accent-brand-600" /> admin</label>
-            <button class="bg-brand-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-700 active:scale-95">Add user</button>
+            <input v-model="nu.name" :placeholder="t('settings.users.username')" class="w-40 border border-neutral-300 px-3 py-1.5 text-sm" />
+            <input v-model="nu.displayName" :placeholder="t('settings.users.displayName')" class="w-44 border border-neutral-300 px-3 py-1.5 text-sm" />
+            <label class="flex items-center gap-1.5 text-sm text-neutral-600"><input v-model="nu.isAdmin" type="checkbox" class="accent-brand-600" /> {{ t('settings.users.admin') }}</label>
+            <button class="bg-brand-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-700 active:scale-95">{{ t('settings.users.add') }}</button>
           </form>
         </div>
       </section>
 
       <!-- Mailboxes -->
       <section>
-        <h2 class="mb-1 text-xs font-semibold uppercase tracking-wide text-neutral-400">Mailboxes</h2>
-        <p class="mb-3 text-xs text-neutral-500">
-          The <span class="font-medium">sender name</span> shows as the display name on outgoing mail. Each
-          mailbox can also carry an HTML <span class="font-medium">footer</span> appended to every message it sends.
-        </p>
+        <h2 class="mb-1 text-xs font-semibold uppercase tracking-wide text-neutral-400">{{ t('settings.mailboxes.title') }}</h2>
+        <i18n-t keypath="settings.mailboxes.hint" tag="p" class="mb-3 text-xs text-neutral-500">
+          <template #senderName><span class="font-medium">{{ t('settings.mailboxes.senderNameTerm') }}</span></template>
+          <template #footer><span class="font-medium">{{ t('settings.mailboxes.footerTerm') }}</span></template>
+        </i18n-t>
         <div class="overflow-hidden border border-neutral-200 bg-white shadow-sm">
           <ul class="divide-y divide-neutral-100">
             <li v-for="b in boxes" :key="b.id">
@@ -238,43 +236,43 @@ async function saveBox(id: number) {
                     <span class="text-neutral-500">{{ b.label ? ` · ${b.address}` : b.address }}</span>
                   </div>
                   <div class="text-xs text-neutral-400">
-                    owner: {{ b.owner.name }}<span v-if="b.signatureHtml"> · has footer</span>
+                    {{ t('settings.mailboxes.owner', { name: b.owner.name }) }}<span v-if="b.signatureHtml"> · {{ t('settings.mailboxes.hasFooter') }}</span>
                   </div>
                 </div>
                 <button class="px-2 py-1 text-xs text-neutral-600 transition hover:bg-neutral-100" @click="openBox(b)">
-                  {{ editingBox === b.id ? 'close' : 'edit' }}
+                  {{ editingBox === b.id ? t('settings.close') : t('settings.edit') }}
                 </button>
-                <button class="text-xs text-brand-600 transition hover:underline" @click="delBox(b)">delete</button>
+                <button class="text-xs text-brand-600 transition hover:underline" @click="delBox(b)">{{ t('settings.delete') }}</button>
               </div>
               <Transition name="reveal">
                 <div v-if="editingBox === b.id" class="space-y-2 border-t border-neutral-100 bg-neutral-50/60 px-4 py-3">
-                  <label class="block text-xs font-medium text-neutral-500">Sender name
-                    <input v-model="eb.label" placeholder="e.g. Johan · Gaupestudio"
+                  <label class="block text-xs font-medium text-neutral-500">{{ t('settings.mailboxes.senderName') }}
+                    <input v-model="eb.label" :placeholder="t('settings.mailboxes.senderNamePlaceholder')"
                       class="mt-1 w-full border border-neutral-300 px-3 py-1.5 text-sm" />
                   </label>
-                  <label class="block text-xs font-medium text-neutral-500">Footer HTML (appended to every send)
+                  <label class="block text-xs font-medium text-neutral-500">{{ t('settings.mailboxes.footerHtml') }}
                     <textarea v-model="eb.signatureHtml" rows="4" placeholder="&lt;p&gt;— Johan&lt;br&gt;Gaupestudio&lt;/p&gt;"
                       class="mt-1 w-full border border-neutral-300 px-3 py-1.5 font-mono text-xs" />
                   </label>
-                  <button class="bg-brand-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-700 active:scale-95" @click="saveBox(b.id)">Save</button>
+                  <button class="bg-brand-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-700 active:scale-95" @click="saveBox(b.id)">{{ t('settings.save') }}</button>
                 </div>
               </Transition>
             </li>
-            <li v-if="!boxes?.length" class="px-4 py-3 text-sm text-neutral-400">No mailboxes.</li>
+            <li v-if="!boxes?.length" class="px-4 py-3 text-sm text-neutral-400">{{ t('settings.mailboxes.none') }}</li>
           </ul>
           <form class="flex flex-wrap items-center gap-2 border-t border-neutral-100 bg-neutral-50/60 p-3" @submit.prevent="addBox">
-            <input v-model="nb.localPart" placeholder="hello" class="w-28 border border-neutral-300 px-3 py-1.5 text-sm" />
+            <input v-model="nb.localPart" :placeholder="t('settings.mailboxes.localPart')" class="w-28 border border-neutral-300 px-3 py-1.5 text-sm" />
             <span class="text-sm text-neutral-400">@</span>
             <select v-model="nb.domainId" class="border border-neutral-300 px-2 py-1.5 text-sm">
-              <option :value="0" disabled>domain</option>
+              <option :value="0" disabled>{{ t('settings.mailboxes.domain') }}</option>
               <option v-for="d in domains" :key="d.id" :value="d.id">{{ d.name }}</option>
             </select>
             <select v-model="nb.userId" class="border border-neutral-300 px-2 py-1.5 text-sm">
-              <option :value="0" disabled>owner</option>
+              <option :value="0" disabled>{{ t('settings.mailboxes.ownerSelect') }}</option>
               <option v-for="u in users" :key="u.id" :value="u.id">{{ u.name }}</option>
             </select>
-            <input v-model="nb.label" placeholder="sender name (optional)" class="w-44 border border-neutral-300 px-3 py-1.5 text-sm" />
-            <button class="bg-brand-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-700 active:scale-95">Add mailbox</button>
+            <input v-model="nb.label" :placeholder="t('settings.mailboxes.senderNameOptional')" class="w-44 border border-neutral-300 px-3 py-1.5 text-sm" />
+            <button class="bg-brand-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-700 active:scale-95">{{ t('settings.mailboxes.add') }}</button>
           </form>
         </div>
       </section>

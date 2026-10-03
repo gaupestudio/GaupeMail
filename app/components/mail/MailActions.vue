@@ -12,6 +12,8 @@ const emit = defineEmits<{
 }>();
 
 const { activeMailboxId, activeMailbox, compose } = useMail();
+const { t } = useI18n();
+const wrote = (when: string, who: string) => t('reply.wrote', { when, who });
 
 function reply(all = false) {
   const o = props.mail;
@@ -24,13 +26,13 @@ function reply(all = false) {
     cc = [...new Set(pool)].join(', ');
   }
   const subject = /^re:/i.test(o.subject) ? o.subject : `Re: ${o.subject}`;
-  compose({ fromId: activeMailboxId.value, to: replyTo, cc, subject, html: quoteBlock(o) });
+  compose({ fromId: activeMailboxId.value, to: replyTo, cc, subject, html: quoteBlock(o, wrote) });
 }
 
 function forward() {
   const o = props.mail;
   const subject = /^fwd:/i.test(o.subject) ? o.subject : `Fwd: ${o.subject}`;
-  compose({ fromId: activeMailboxId.value, subject, html: quoteBlock(o) });
+  compose({ fromId: activeMailboxId.value, subject, html: quoteBlock(o, wrote) });
 }
 
 const btn =
@@ -40,13 +42,13 @@ const btn =
 <template>
   <div class="mb-5 flex flex-wrap items-center gap-1.5">
     <button :class="btn" @click="reply(false)">
-      <Icon name="reply" :size="16" /> Reply
+      <Icon name="reply" :size="16" /> {{ t('actions.reply') }}
     </button>
     <button :class="btn" @click="reply(true)">
-      <Icon name="reply_all" :size="16" /> <span class="hidden sm:inline">Reply all</span>
+      <Icon name="reply_all" :size="16" /> <span class="hidden sm:inline">{{ t('actions.replyAll') }}</span>
     </button>
     <button :class="btn" @click="forward">
-      <Icon name="forward" :size="16" /> <span class="hidden sm:inline">Forward</span>
+      <Icon name="forward" :size="16" /> <span class="hidden sm:inline">{{ t('actions.forward') }}</span>
     </button>
     <span class="mx-1 h-5 w-px bg-neutral-200" />
     <button
@@ -58,33 +60,33 @@ const btn =
       @click="emit('star', !mail.starred)"
     >
       <Icon name="star" :size="16" :fill="mail.starred" />
-      {{ mail.starred ? 'Starred' : 'Star' }}
+      {{ mail.starred ? t('actions.starred') : t('actions.star') }}
     </button>
     <button
       v-if="mail.direction === 'INBOUND' && !mail.deleted"
       :class="btn"
-      :title="mail.spamScore != null ? `SpamAssassin score ${mail.spamScore}` : undefined"
+      :title="mail.spamScore != null ? t('actions.spamScore', { score: mail.spamScore }) : undefined"
       @click="emit('spam', !mail.spam)"
     >
       <template v-if="mail.spam">
-        <Icon name="move_to_inbox" :size="16" /> Not spam
+        <Icon name="move_to_inbox" :size="16" /> {{ t('actions.notSpam') }}
       </template>
       <template v-else>
-        <Icon name="report" :size="16" /> <span class="hidden sm:inline">Spam</span>
+        <Icon name="report" :size="16" /> <span class="hidden sm:inline">{{ t('actions.spam') }}</span>
       </template>
     </button>
     <button v-if="!mail.deleted" :class="[btn, 'hover:text-brand-600']" @click="emit('trash')">
-      <Icon name="delete" :size="16" /> <span class="hidden sm:inline">Trash</span>
+      <Icon name="delete" :size="16" /> <span class="hidden sm:inline">{{ t('actions.trash') }}</span>
     </button>
     <template v-else>
       <button :class="btn" @click="emit('restore')">
-        <Icon name="restore_from_trash" :size="16" /> Restore
+        <Icon name="restore_from_trash" :size="16" /> {{ t('actions.restore') }}
       </button>
       <button
         class="flex items-center gap-1.5 border border-brand-200 bg-white px-3 py-1.5 text-sm font-medium text-brand-600 transition hover:bg-brand-50 active:scale-95"
         @click="emit('destroy')"
       >
-        <Icon name="delete_forever" :size="16" /> Delete forever
+        <Icon name="delete_forever" :size="16" /> {{ t('actions.deleteForever') }}
       </button>
     </template>
     <button class="ml-auto flex items-center p-1.5 text-neutral-400 transition hover:bg-neutral-100 lg:hidden" @click="emit('close')">

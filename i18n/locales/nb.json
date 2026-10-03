@@ -1,0 +1,164 @@
+{
+  "nav": {
+    "inbox": "Innboks",
+    "starred": "Stjernemerket",
+    "sent": "Sendte elementer",
+    "spam": "Søppelpost",
+    "trash": "Papirkurv",
+    "settings": "Innstillinger",
+    "compose": "Ny e-post",
+    "new": "Ny"
+  },
+  "mail": {
+    "refresh": "Oppdater",
+    "nothingHere": "Ingenting her.",
+    "noSubject": "(uten emne)",
+    "noContent": "(uten innhold)",
+    "selectMessage": "Velg en melding for å lese den",
+    "loading": "Laster…",
+    "toRecipient": "Til {to}",
+    "to": "til",
+    "cc": "kopi"
+  },
+  "actions": {
+    "reply": "Svar",
+    "replyAll": "Svar alle",
+    "forward": "Videresend",
+    "star": "Stjernemerk",
+    "starred": "Stjernemerket",
+    "spam": "Søppelpost",
+    "notSpam": "Ikke søppelpost",
+    "spamScore": "SpamAssassin-poengsum {score}",
+    "trash": "Papirkurv",
+    "restore": "Gjenopprett",
+    "deleteForever": "Slett permanent",
+    "confirmDeleteForever": "Slette denne meldingen permanent?"
+  },
+  "errors": {
+    "star": "Kunne ikke stjernemerke: {msg}",
+    "trash": "Kunne ikke flytte til papirkurven: {msg}",
+    "markSpam": "Kunne ikke merke som søppelpost: {msg}",
+    "notSpam": "Kunne ikke flytte til innboksen: {msg}",
+    "restore": "Kunne ikke gjenopprette: {msg}",
+    "delete": "Kunne ikke slette: {msg}",
+    "generic": "Noe gikk galt"
+  },
+  "account": {
+    "switchMailbox": "Bytt postkasse",
+    "signOut": "Logg ut",
+    "noMailbox": "ingen postkasse",
+    "language": "Språk"
+  },
+  "compose": {
+    "title": "Ny melding",
+    "close": "Lukk",
+    "from": "Fra",
+    "to": "Til",
+    "cc": "Kopi",
+    "bcc": "Blindkopi",
+    "ccBcc": "Kopi/Blindkopi",
+    "subject": "Emne",
+    "recipientsPlaceholder": "navn{'@'}eksempel.no, …",
+    "commaSeparated": "Kommaseparert",
+    "attachFiles": "Legg ved filer",
+    "plainText": "Ren tekst",
+    "richText": "Formatert tekst",
+    "sizeOfMax": "{size} av 4 MB",
+    "bodyPlaceholder": "Skriv meldingen din…",
+    "linkUrl": "Lenke-URL",
+    "send": "Send",
+    "sending": "Sender…",
+    "discard": "Forkast",
+    "errors": {
+      "tooLarge": "Vedleggene er over 4 MB totalt",
+      "pickFrom": "Velg en avsenderpostkasse",
+      "addRecipient": "Legg til en mottaker",
+      "addSubject": "Legg til et emne",
+      "writeMessage": "Skriv en melding",
+      "sendFailed": "Sending mislyktes"
+    }
+  },
+  "reply": {
+    "wrote": "{when} skrev {who}:"
+  },
+  "login": {
+    "createAdmin": "Opprett administratorkontoen",
+    "firstAccount": "Dette er den første kontoen, så den blir administrator for {org}.",
+    "username": "Brukernavn",
+    "displayNameOptional": "Visningsnavn (valgfritt)",
+    "waiting": "Venter på tilgangsnøkkel…",
+    "createPasskey": "Opprett tilgangsnøkkel",
+    "signIn": "Logg inn",
+    "enrollPasskey": "Registrer tilgangsnøkkel",
+    "signInWithPasskey": "Logg inn med tilgangsnøkkel",
+    "enrollHint": "Fungerer for en konto en administrator har opprettet som ikke har en tilgangsnøkkel ennå."
+  },
+  "setup": {
+    "subtitle": "Sett opp organisasjonen din",
+    "orgName": "Organisasjonsnavn",
+    "orgNameHint": "Vises i hele appen og brukes som identiteten til arbeidsområdet ditt.",
+    "placeholder": "f.eks. Gaupestudio",
+    "saving": "Lagrer…",
+    "continue": "Fortsett",
+    "nameRequired": "Skriv inn et organisasjonsnavn",
+    "saveFailed": "Kunne ikke lagre"
+  },
+  "settings": {
+    "title": "Innstillinger",
+    "subtitle": "{org} · domener, brukere og postkasser",
+    "failed": "mislyktes",
+    "save": "Lagre",
+    "saved": "Lagret ✓",
+    "add": "Legg til",
+    "delete": "slett",
+    "edit": "rediger",
+    "close": "lukk",
+    "mailboxCount": "ingen postkasser | {n} postkasse | {n} postkasser",
+    "org": {
+      "title": "Organisasjon",
+      "hint": "{name} vises i hele appen. {footer} er HTML som legges til nederst i alle meldinger sendt fra en hvilken som helst postkasse (etter postkassens egen bunntekst, hvis satt).",
+      "nameTerm": "Navnet",
+      "footerTerm": "E-postbunnteksten",
+      "name": "Navn",
+      "footer": "E-postbunntekst (HTML)"
+    },
+    "domains": {
+      "title": "Avsenderdomener",
+      "hint": "Hvert domene bruker sin egen Cloudflare-konto. Lim inn konto-ID-en og et API-token med tillatelsen {permission}.",
+      "token": "token {hint}",
+      "none": "Ingen domener.",
+      "accountId": "cloudflare-konto-ID",
+      "apiToken": "API-token (Send Email)",
+      "confirmDelete": "Slette {name} og postkassene ({n})?"
+    },
+    "users": {
+      "title": "Brukere",
+      "hint": "Nye brukere registrerer sin egen tilgangsnøkkel fra innloggingssiden (tillatt til de har en).",
+      "admin": "admin",
+      "passkeyCount": "{n} tilgangsnøkkel | {n} tilgangsnøkler",
+      "notEnrolled": "ikke registrert",
+      "username": "brukernavn",
+      "displayName": "visningsnavn",
+      "add": "Legg til bruker",
+      "confirmDelete": "Slette brukeren {name}?"
+    },
+    "mailboxes": {
+      "title": "Postkasser",
+      "hint": "{senderName} vises som visningsnavn på utgående e-post. Hver postkasse kan også ha en HTML-{footer} som legges til alle meldinger den sender.",
+      "senderNameTerm": "Avsendernavnet",
+      "footerTerm": "bunntekst",
+      "owner": "eier: {name}",
+      "hasFooter": "har bunntekst",
+      "senderName": "Avsendernavn",
+      "senderNamePlaceholder": "f.eks. Johan · Gaupestudio",
+      "footerHtml": "Bunntekst-HTML (legges til ved hver sending)",
+      "none": "Ingen postkasser.",
+      "localPart": "hei",
+      "domain": "domene",
+      "ownerSelect": "eier",
+      "senderNameOptional": "avsendernavn (valgfritt)",
+      "add": "Legg til postkasse",
+      "confirmDelete": "Slette {address}?"
+    }
+  }
+}

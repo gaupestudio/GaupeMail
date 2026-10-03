@@ -3,6 +3,8 @@
 const { user, logout } = useAuth();
 const { activeMailbox, mailboxes, setMailbox, filter } = useMail();
 
+const { locale, locales, setLocale } = useI18n();
+
 const menuOpen = ref(false);
 watch(filter, () => (menuOpen.value = false));
 
@@ -19,7 +21,7 @@ const initials = computed(() => {
         v-if="menuOpen"
         class="absolute inset-x-2 bottom-full mb-2 overflow-hidden border border-neutral-200 bg-white shadow-xl"
       >
-        <div class="px-3 py-2 text-[11px] font-semibold uppercase tracking-wide text-neutral-400">Switch mailbox</div>
+        <div class="px-3 py-2 text-[11px] font-semibold uppercase tracking-wide text-neutral-400">{{ $t('account.switchMailbox') }}</div>
         <button
           v-for="b in mailboxes"
           :key="b.id"
@@ -35,8 +37,19 @@ const initials = computed(() => {
           <Icon v-else-if="b.id === activeMailbox?.id" name="check" :size="16" />
         </button>
         <div class="border-t border-neutral-100">
+          <label class="flex items-center gap-2 px-3 py-2 text-sm text-neutral-600">
+            <Icon name="language" :size="18" />
+            <span class="sr-only">{{ $t('account.language') }}</span>
+            <select
+              :value="locale"
+              class="min-w-0 flex-1 border border-neutral-300 bg-white px-2 py-1 text-sm"
+              @change="setLocale(($event.target as HTMLSelectElement).value as typeof locale)"
+            >
+              <option v-for="l in locales" :key="l.code" :value="l.code">{{ l.name }}</option>
+            </select>
+          </label>
           <button class="flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-neutral-600 transition hover:bg-neutral-100" @click="logout">
-            <Icon name="logout" :size="18" /> Sign out
+            <Icon name="logout" :size="18" /> {{ $t('account.signOut') }}
           </button>
         </div>
       </div>
@@ -51,7 +64,7 @@ const initials = computed(() => {
       </span>
       <span class="min-w-0 flex-1">
         <span class="block truncate text-sm font-medium">{{ user?.displayName || user?.name }}</span>
-        <span class="block truncate text-xs text-neutral-400">{{ activeMailbox?.label || activeMailbox?.address || 'no mailbox' }}</span>
+        <span class="block truncate text-xs text-neutral-400">{{ activeMailbox?.label || activeMailbox?.address || $t('account.noMailbox') }}</span>
       </span>
       <Icon name="expand_more" :size="18" class="shrink-0 text-neutral-400 transition" :class="{ 'rotate-180': menuOpen }" />
     </button>

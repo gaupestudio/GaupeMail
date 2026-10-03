@@ -1,0 +1,164 @@
+{
+  "nav": {
+    "inbox": "Indbakke",
+    "starred": "Stjernemarkeret",
+    "sent": "Sendt post",
+    "spam": "Spam",
+    "trash": "Papirkurv",
+    "settings": "Indstillinger",
+    "compose": "Ny mail",
+    "new": "Ny"
+  },
+  "mail": {
+    "refresh": "Opdater",
+    "nothingHere": "Intet her.",
+    "noSubject": "(intet emne)",
+    "noContent": "(intet indhold)",
+    "selectMessage": "Vælg en besked for at læse den",
+    "loading": "Indlæser…",
+    "toRecipient": "Til {to}",
+    "to": "til",
+    "cc": "cc"
+  },
+  "actions": {
+    "reply": "Svar",
+    "replyAll": "Svar alle",
+    "forward": "Videresend",
+    "star": "Stjernemarkér",
+    "starred": "Stjernemarkeret",
+    "spam": "Spam",
+    "notSpam": "Ikke spam",
+    "spamScore": "SpamAssassin-score {score}",
+    "trash": "Papirkurv",
+    "restore": "Gendan",
+    "deleteForever": "Slet permanent",
+    "confirmDeleteForever": "Slet denne besked permanent?"
+  },
+  "errors": {
+    "star": "Kunne ikke stjernemarkere: {msg}",
+    "trash": "Kunne ikke flytte til papirkurven: {msg}",
+    "markSpam": "Kunne ikke markere som spam: {msg}",
+    "notSpam": "Kunne ikke flytte til indbakken: {msg}",
+    "restore": "Kunne ikke gendanne: {msg}",
+    "delete": "Kunne ikke slette: {msg}",
+    "generic": "Noget gik galt"
+  },
+  "account": {
+    "switchMailbox": "Skift postkasse",
+    "signOut": "Log ud",
+    "noMailbox": "ingen postkasse",
+    "language": "Sprog"
+  },
+  "compose": {
+    "title": "Ny besked",
+    "close": "Luk",
+    "from": "Fra",
+    "to": "Til",
+    "cc": "Cc",
+    "bcc": "Bcc",
+    "ccBcc": "Cc/Bcc",
+    "subject": "Emne",
+    "recipientsPlaceholder": "navn{'@'}eksempel.dk, …",
+    "commaSeparated": "Kommasepareret",
+    "attachFiles": "Vedhæft filer",
+    "plainText": "Ren tekst",
+    "richText": "Formateret tekst",
+    "sizeOfMax": "{size} af 4 MB",
+    "bodyPlaceholder": "Skriv din besked…",
+    "linkUrl": "Link-URL",
+    "send": "Send",
+    "sending": "Sender…",
+    "discard": "Kassér",
+    "errors": {
+      "tooLarge": "Vedhæftninger fylder over 4 MB i alt",
+      "pickFrom": "Vælg en afsenderpostkasse",
+      "addRecipient": "Tilføj en modtager",
+      "addSubject": "Tilføj et emne",
+      "writeMessage": "Skriv en besked",
+      "sendFailed": "Afsendelse mislykkedes"
+    }
+  },
+  "reply": {
+    "wrote": "{when} skrev {who}:"
+  },
+  "login": {
+    "createAdmin": "Opret administratorkontoen",
+    "firstAccount": "Dette er den første konto, så den bliver administrator for {org}.",
+    "username": "Brugernavn",
+    "displayNameOptional": "Visningsnavn (valgfrit)",
+    "waiting": "Venter på adgangsnøgle…",
+    "createPasskey": "Opret adgangsnøgle",
+    "signIn": "Log ind",
+    "enrollPasskey": "Tilmeld adgangsnøgle",
+    "signInWithPasskey": "Log ind med adgangsnøgle",
+    "enrollHint": "Virker for en konto, som en administrator har oprettet, og som endnu ikke har en adgangsnøgle."
+  },
+  "setup": {
+    "subtitle": "Opsæt din organisation",
+    "orgName": "Organisationens navn",
+    "orgNameHint": "Vises i hele appen og bruges som jeres arbejdsområdes identitet.",
+    "placeholder": "f.eks. Gaupestudio",
+    "saving": "Gemmer…",
+    "continue": "Fortsæt",
+    "nameRequired": "Indtast et organisationsnavn",
+    "saveFailed": "Kunne ikke gemme"
+  },
+  "settings": {
+    "title": "Indstillinger",
+    "subtitle": "{org} · domæner, brugere og postkasser",
+    "failed": "mislykkedes",
+    "save": "Gem",
+    "saved": "Gemt ✓",
+    "add": "Tilføj",
+    "delete": "slet",
+    "edit": "rediger",
+    "close": "luk",
+    "mailboxCount": "ingen postkasser | {n} postkasse | {n} postkasser",
+    "org": {
+      "title": "Organisation",
+      "hint": "Dit {name} vises i hele appen. {footer} er HTML, der tilføjes nederst i alle beskeder sendt fra enhver postkasse (efter postkassens egen sidefod, hvis den er sat).",
+      "nameTerm": "navn",
+      "footerTerm": "Mailsidefoden",
+      "name": "Navn",
+      "footer": "Mailsidefod (HTML)"
+    },
+    "domains": {
+      "title": "Afsenderdomæner",
+      "hint": "Hvert domæne bruger sin egen Cloudflare-konto. Indsæt konto-id'et og et API-token med tilladelsen {permission}.",
+      "token": "token {hint}",
+      "none": "Ingen domæner.",
+      "accountId": "cloudflare-konto-id",
+      "apiToken": "API-token (Send Email)",
+      "confirmDelete": "Slet {name} og dets postkasser ({n})?"
+    },
+    "users": {
+      "title": "Brugere",
+      "hint": "Nye brugere tilmelder selv deres adgangsnøgle fra login-siden (tilladt indtil de har en).",
+      "admin": "admin",
+      "passkeyCount": "{n} adgangsnøgle | {n} adgangsnøgler",
+      "notEnrolled": "ikke tilmeldt",
+      "username": "brugernavn",
+      "displayName": "visningsnavn",
+      "add": "Tilføj bruger",
+      "confirmDelete": "Slet brugeren {name}?"
+    },
+    "mailboxes": {
+      "title": "Postkasser",
+      "hint": "{senderName} vises som visningsnavn på udgående mail. Hver postkasse kan også have en HTML-{footer}, der tilføjes alle beskeder, den sender.",
+      "senderNameTerm": "Afsendernavnet",
+      "footerTerm": "sidefod",
+      "owner": "ejer: {name}",
+      "hasFooter": "har sidefod",
+      "senderName": "Afsendernavn",
+      "senderNamePlaceholder": "f.eks. Johan · Gaupestudio",
+      "footerHtml": "Sidefod-HTML (tilføjes ved hver afsendelse)",
+      "none": "Ingen postkasser.",
+      "localPart": "hej",
+      "domain": "domæne",
+      "ownerSelect": "ejer",
+      "senderNameOptional": "afsendernavn (valgfrit)",
+      "add": "Tilføj postkasse",
+      "confirmDelete": "Slet {address}?"
+    }
+  }
+}

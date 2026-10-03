@@ -1,0 +1,164 @@
+{
+  "nav": {
+    "inbox": "Inbox",
+    "starred": "Starred",
+    "sent": "Sent Items",
+    "spam": "Spam",
+    "trash": "Trash",
+    "settings": "Settings",
+    "compose": "Compose",
+    "new": "New"
+  },
+  "mail": {
+    "refresh": "Refresh",
+    "nothingHere": "Nothing here.",
+    "noSubject": "(no subject)",
+    "noContent": "(no content)",
+    "selectMessage": "Select a message to read",
+    "loading": "Loading…",
+    "toRecipient": "To {to}",
+    "to": "to",
+    "cc": "cc"
+  },
+  "actions": {
+    "reply": "Reply",
+    "replyAll": "Reply all",
+    "forward": "Forward",
+    "star": "Star",
+    "starred": "Starred",
+    "spam": "Spam",
+    "notSpam": "Not spam",
+    "spamScore": "SpamAssassin score {score}",
+    "trash": "Trash",
+    "restore": "Restore",
+    "deleteForever": "Delete forever",
+    "confirmDeleteForever": "Delete this message permanently?"
+  },
+  "errors": {
+    "star": "Couldn't star: {msg}",
+    "trash": "Couldn't move to trash: {msg}",
+    "markSpam": "Couldn't mark as spam: {msg}",
+    "notSpam": "Couldn't move to inbox: {msg}",
+    "restore": "Couldn't restore: {msg}",
+    "delete": "Couldn't delete: {msg}",
+    "generic": "Something went wrong"
+  },
+  "account": {
+    "switchMailbox": "Switch mailbox",
+    "signOut": "Sign out",
+    "noMailbox": "no mailbox",
+    "language": "Language"
+  },
+  "compose": {
+    "title": "New message",
+    "close": "Close",
+    "from": "From",
+    "to": "To",
+    "cc": "Cc",
+    "bcc": "Bcc",
+    "ccBcc": "Cc/Bcc",
+    "subject": "Subject",
+    "recipientsPlaceholder": "name{'@'}example.com, …",
+    "commaSeparated": "Comma-separated",
+    "attachFiles": "Attach files",
+    "plainText": "Plain text",
+    "richText": "Rich text",
+    "sizeOfMax": "{size} of 4 MB",
+    "bodyPlaceholder": "Write your message…",
+    "linkUrl": "Link URL",
+    "send": "Send",
+    "sending": "Sending…",
+    "discard": "Discard",
+    "errors": {
+      "tooLarge": "Attachments exceed 4 MB total",
+      "pickFrom": "Pick a From mailbox",
+      "addRecipient": "Add a recipient",
+      "addSubject": "Add a subject",
+      "writeMessage": "Write a message",
+      "sendFailed": "Send failed"
+    }
+  },
+  "reply": {
+    "wrote": "On {when}, {who} wrote:"
+  },
+  "login": {
+    "createAdmin": "Create the admin account",
+    "firstAccount": "This is the first account, so it becomes the {org} admin.",
+    "username": "Username",
+    "displayNameOptional": "Display name (optional)",
+    "waiting": "Waiting for passkey…",
+    "createPasskey": "Create passkey",
+    "signIn": "Sign in",
+    "enrollPasskey": "Enroll passkey",
+    "signInWithPasskey": "Sign in with passkey",
+    "enrollHint": "Works for an account an admin created that has no passkey yet."
+  },
+  "setup": {
+    "subtitle": "Set up your organization",
+    "orgName": "Organization name",
+    "orgNameHint": "Shown throughout the app and used as your workspace identity.",
+    "placeholder": "e.g. Gaupestudio",
+    "saving": "Saving…",
+    "continue": "Continue",
+    "nameRequired": "Enter an organization name",
+    "saveFailed": "Could not save"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "{org} · domains, users & mailboxes",
+    "failed": "failed",
+    "save": "Save",
+    "saved": "Saved ✓",
+    "add": "Add",
+    "delete": "delete",
+    "edit": "edit",
+    "close": "close",
+    "mailboxCount": "no mailboxes | {n} mailbox | {n} mailboxes",
+    "org": {
+      "title": "Organization",
+      "hint": "The {name} shows throughout the app. The {footer} is HTML appended to the bottom of every message sent from any mailbox (after the per-mailbox footer, if set).",
+      "nameTerm": "name",
+      "footerTerm": "email footer",
+      "name": "Name",
+      "footer": "Email footer (HTML)"
+    },
+    "domains": {
+      "title": "Sending domains",
+      "hint": "Each domain uses its own Cloudflare account. Paste the account id and an API token with the {permission} permission.",
+      "token": "token {hint}",
+      "none": "No domains.",
+      "accountId": "cloudflare account id",
+      "apiToken": "API token (Send Email)",
+      "confirmDelete": "Delete {name} and its mailboxes ({n})?"
+    },
+    "users": {
+      "title": "Users",
+      "hint": "New users enroll their own passkey from the sign-in page (allowed until they have one).",
+      "admin": "admin",
+      "passkeyCount": "{n} passkey | {n} passkeys",
+      "notEnrolled": "not enrolled",
+      "username": "username",
+      "displayName": "display name",
+      "add": "Add user",
+      "confirmDelete": "Delete user {name}?"
+    },
+    "mailboxes": {
+      "title": "Mailboxes",
+      "hint": "The {senderName} shows as the display name on outgoing mail. Each mailbox can also carry an HTML {footer} appended to every message it sends.",
+      "senderNameTerm": "sender name",
+      "footerTerm": "footer",
+      "owner": "owner: {name}",
+      "hasFooter": "has footer",
+      "senderName": "Sender name",
+      "senderNamePlaceholder": "e.g. Johan · Gaupestudio",
+      "footerHtml": "Footer HTML (appended to every send)",
+      "none": "No mailboxes.",
+      "localPart": "hello",
+      "domain": "domain",
+      "ownerSelect": "owner",
+      "senderNameOptional": "sender name (optional)",
+      "add": "Add mailbox",
+      "confirmDelete": "Delete {address}?"
+    }
+  }
+}

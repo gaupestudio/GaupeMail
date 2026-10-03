@@ -1,0 +1,164 @@
+{
+  "nav": {
+    "inbox": "Posteingang",
+    "starred": "Markiert",
+    "sent": "Gesendet",
+    "spam": "Spam",
+    "trash": "Papierkorb",
+    "settings": "Einstellungen",
+    "compose": "Verfassen",
+    "new": "Neu"
+  },
+  "mail": {
+    "refresh": "Aktualisieren",
+    "nothingHere": "Hier ist nichts.",
+    "noSubject": "(kein Betreff)",
+    "noContent": "(kein Inhalt)",
+    "selectMessage": "Wähle eine Nachricht zum Lesen aus",
+    "loading": "Wird geladen…",
+    "toRecipient": "An {to}",
+    "to": "an",
+    "cc": "Cc"
+  },
+  "actions": {
+    "reply": "Antworten",
+    "replyAll": "Allen antworten",
+    "forward": "Weiterleiten",
+    "star": "Markieren",
+    "starred": "Markiert",
+    "spam": "Spam",
+    "notSpam": "Kein Spam",
+    "spamScore": "SpamAssassin-Wert {score}",
+    "trash": "Papierkorb",
+    "restore": "Wiederherstellen",
+    "deleteForever": "Endgültig löschen",
+    "confirmDeleteForever": "Diese Nachricht endgültig löschen?"
+  },
+  "errors": {
+    "star": "Markieren fehlgeschlagen: {msg}",
+    "trash": "Verschieben in den Papierkorb fehlgeschlagen: {msg}",
+    "markSpam": "Als Spam markieren fehlgeschlagen: {msg}",
+    "notSpam": "Verschieben in den Posteingang fehlgeschlagen: {msg}",
+    "restore": "Wiederherstellen fehlgeschlagen: {msg}",
+    "delete": "Löschen fehlgeschlagen: {msg}",
+    "generic": "Etwas ist schiefgelaufen"
+  },
+  "account": {
+    "switchMailbox": "Postfach wechseln",
+    "signOut": "Abmelden",
+    "noMailbox": "kein Postfach",
+    "language": "Sprache"
+  },
+  "compose": {
+    "title": "Neue Nachricht",
+    "close": "Schließen",
+    "from": "Von",
+    "to": "An",
+    "cc": "Cc",
+    "bcc": "Bcc",
+    "ccBcc": "Cc/Bcc",
+    "subject": "Betreff",
+    "recipientsPlaceholder": "name{'@'}beispiel.de, …",
+    "commaSeparated": "Durch Kommas getrennt",
+    "attachFiles": "Dateien anhängen",
+    "plainText": "Nur Text",
+    "richText": "Formatierter Text",
+    "sizeOfMax": "{size} von 4 MB",
+    "bodyPlaceholder": "Schreib deine Nachricht…",
+    "linkUrl": "Link-URL",
+    "send": "Senden",
+    "sending": "Wird gesendet…",
+    "discard": "Verwerfen",
+    "errors": {
+      "tooLarge": "Anhänge überschreiten insgesamt 4 MB",
+      "pickFrom": "Wähle ein Absenderpostfach",
+      "addRecipient": "Füge einen Empfänger hinzu",
+      "addSubject": "Füge einen Betreff hinzu",
+      "writeMessage": "Schreib eine Nachricht",
+      "sendFailed": "Senden fehlgeschlagen"
+    }
+  },
+  "reply": {
+    "wrote": "Am {when} schrieb {who}:"
+  },
+  "login": {
+    "createAdmin": "Administratorkonto erstellen",
+    "firstAccount": "Dies ist das erste Konto, daher wird es Administrator von {org}.",
+    "username": "Benutzername",
+    "displayNameOptional": "Anzeigename (optional)",
+    "waiting": "Warte auf Passkey…",
+    "createPasskey": "Passkey erstellen",
+    "signIn": "Anmelden",
+    "enrollPasskey": "Passkey registrieren",
+    "signInWithPasskey": "Mit Passkey anmelden",
+    "enrollHint": "Für ein Konto, das ein Administrator angelegt hat und das noch keinen Passkey besitzt."
+  },
+  "setup": {
+    "subtitle": "Richte deine Organisation ein",
+    "orgName": "Name der Organisation",
+    "orgNameHint": "Wird überall in der App angezeigt und dient als Identität deines Arbeitsbereichs.",
+    "placeholder": "z. B. Gaupestudio",
+    "saving": "Wird gespeichert…",
+    "continue": "Weiter",
+    "nameRequired": "Gib einen Organisationsnamen ein",
+    "saveFailed": "Speichern fehlgeschlagen"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "subtitle": "{org} · Domains, Benutzer & Postfächer",
+    "failed": "fehlgeschlagen",
+    "save": "Speichern",
+    "saved": "Gespeichert ✓",
+    "add": "Hinzufügen",
+    "delete": "löschen",
+    "edit": "bearbeiten",
+    "close": "schließen",
+    "mailboxCount": "keine Postfächer | {n} Postfach | {n} Postfächer",
+    "org": {
+      "title": "Organisation",
+      "hint": "Der {name} wird überall in der App angezeigt. Die {footer} ist HTML, das unten an jede Nachricht angehängt wird, die von einem beliebigen Postfach gesendet wird (nach der Fußzeile des Postfachs, falls gesetzt).",
+      "nameTerm": "Name",
+      "footerTerm": "E-Mail-Fußzeile",
+      "name": "Name",
+      "footer": "E-Mail-Fußzeile (HTML)"
+    },
+    "domains": {
+      "title": "Absenderdomains",
+      "hint": "Jede Domain verwendet ihr eigenes Cloudflare-Konto. Füge die Konto-ID und ein API-Token mit der Berechtigung {permission} ein.",
+      "token": "Token {hint}",
+      "none": "Keine Domains.",
+      "accountId": "Cloudflare-Konto-ID",
+      "apiToken": "API-Token (Send Email)",
+      "confirmDelete": "{name} und die zugehörigen Postfächer ({n}) löschen?"
+    },
+    "users": {
+      "title": "Benutzer",
+      "hint": "Neue Benutzer registrieren ihren eigenen Passkey auf der Anmeldeseite (erlaubt, bis sie einen haben).",
+      "admin": "Admin",
+      "passkeyCount": "{n} Passkey | {n} Passkeys",
+      "notEnrolled": "nicht registriert",
+      "username": "Benutzername",
+      "displayName": "Anzeigename",
+      "add": "Benutzer hinzufügen",
+      "confirmDelete": "Benutzer {name} löschen?"
+    },
+    "mailboxes": {
+      "title": "Postfächer",
+      "hint": "Der {senderName} erscheint als Anzeigename bei ausgehenden E-Mails. Jedes Postfach kann außerdem eine HTML-{footer} haben, die an jede gesendete Nachricht angehängt wird.",
+      "senderNameTerm": "Absendername",
+      "footerTerm": "Fußzeile",
+      "owner": "Besitzer: {name}",
+      "hasFooter": "hat Fußzeile",
+      "senderName": "Absendername",
+      "senderNamePlaceholder": "z. B. Johan · Gaupestudio",
+      "footerHtml": "Fußzeilen-HTML (wird bei jedem Versand angehängt)",
+      "none": "Keine Postfächer.",
+      "localPart": "hallo",
+      "domain": "Domain",
+      "ownerSelect": "Besitzer",
+      "senderNameOptional": "Absendername (optional)",
+      "add": "Postfach hinzufügen",
+      "confirmDelete": "{address} löschen?"
+    }
+  }
+}

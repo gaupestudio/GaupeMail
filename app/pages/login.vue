@@ -5,6 +5,7 @@ definePageMeta({ layout: false });
 
 const { firstRun, fetchMe } = useAuth();
 const { orgName } = useOrg();
+const { t } = useI18n();
 const busy = ref(false);
 const error = ref<string | null>(null);
 const mode = ref<'signin' | 'enroll'>('signin');
@@ -13,7 +14,7 @@ const regName = ref('');
 const regDisplay = ref('');
 
 const msg = (e: any) =>
-  e?.data?.message || e?.data?.statusMessage || e?.statusMessage || e?.message || 'Something went wrong';
+  e?.data?.message || e?.data?.statusMessage || e?.statusMessage || e?.message || t('errors.generic');
 
 async function signIn() {
   busy.value = true;
@@ -73,39 +74,39 @@ onMounted(fetchMe);
 
       <!-- First run -->
       <div v-if="firstRun" class="space-y-3 border border-neutral-200 bg-white p-6 shadow-sm">
-        <h2 class="text-sm font-semibold">Create the admin account</h2>
-        <p class="text-xs text-neutral-400">This is the first account, so it becomes the {{ orgName }} admin.</p>
-        <input v-model="regName" placeholder="Username"
+        <h2 class="text-sm font-semibold">{{ t('login.createAdmin') }}</h2>
+        <p class="text-xs text-neutral-400">{{ t('login.firstAccount', { org: orgName }) }}</p>
+        <input v-model="regName" :placeholder="t('login.username')"
           class="w-full border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100" />
-        <input v-model="regDisplay" placeholder="Display name (optional)"
+        <input v-model="regDisplay" :placeholder="t('login.displayNameOptional')"
           class="w-full border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100" />
         <button :disabled="busy" @click="enroll"
           class="w-full bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-700 active:scale-[0.98] disabled:opacity-50">
-          {{ busy ? 'Waiting for passkey…' : 'Create passkey' }}
+          {{ busy ? t('login.waiting') : t('login.createPasskey') }}
         </button>
       </div>
 
       <!-- Sign in / enroll -->
       <div v-else class="border border-neutral-200 bg-white p-6 shadow-sm">
         <div class="mb-4 flex gap-1 bg-neutral-100 p-1 text-sm">
-          <button class="flex-1 py-1.5 transition" :class="mode === 'signin' ? 'bg-white font-medium shadow-sm' : 'text-neutral-500'" @click="mode = 'signin'">Sign in</button>
-          <button class="flex-1 py-1.5 transition" :class="mode === 'enroll' ? 'bg-white font-medium shadow-sm' : 'text-neutral-500'" @click="mode = 'enroll'">Enroll passkey</button>
+          <button class="flex-1 py-1.5 transition" :class="mode === 'signin' ? 'bg-white font-medium shadow-sm' : 'text-neutral-500'" @click="mode = 'signin'">{{ t('login.signIn') }}</button>
+          <button class="flex-1 py-1.5 transition" :class="mode === 'enroll' ? 'bg-white font-medium shadow-sm' : 'text-neutral-500'" @click="mode = 'enroll'">{{ t('login.enrollPasskey') }}</button>
         </div>
 
         <Transition name="reveal" mode="out-in">
           <div v-if="mode === 'signin'" key="signin">
             <button :disabled="busy" @click="signIn"
               class="w-full bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-brand-700 active:scale-[0.98] disabled:opacity-50">
-              {{ busy ? 'Waiting for passkey…' : 'Sign in with passkey' }}
+              {{ busy ? t('login.waiting') : t('login.signInWithPasskey') }}
             </button>
           </div>
           <div v-else key="enroll" class="space-y-3">
-            <p class="text-xs text-neutral-400">Works for an account an admin created that has no passkey yet.</p>
-            <input v-model="regName" placeholder="Username"
+            <p class="text-xs text-neutral-400">{{ t('login.enrollHint') }}</p>
+            <input v-model="regName" :placeholder="t('login.username')"
               class="w-full border border-neutral-300 px-3 py-2 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100" />
             <button :disabled="busy || !regName.trim()" @click="enroll"
               class="w-full border border-neutral-300 px-4 py-2.5 text-sm font-semibold transition hover:bg-neutral-50 active:scale-[0.98] disabled:opacity-50">
-              {{ busy ? 'Waiting for passkey…' : 'Enroll passkey' }}
+              {{ busy ? t('login.waiting') : t('login.enrollPasskey') }}
             </button>
           </div>
         </Transition>

@@ -9,12 +9,12 @@ const { orgName } = useOrg();
 const route = useRoute();
 const { filter, activeMailbox, compose } = useMail();
 
-const nav: { key: MailFilter; label: string; icon: string }[] = [
-  { key: 'inbox', label: 'Inbox', icon: 'inbox' },
-  { key: 'starred', label: 'Starred', icon: 'star' },
-  { key: 'sent', label: 'Sent Items', icon: 'send' },
-  { key: 'spam', label: 'Spam', icon: 'report' },
-  { key: 'trash', label: 'Trash', icon: 'delete' },
+const nav: { key: MailFilter; icon: string }[] = [
+  { key: 'inbox', icon: 'inbox' },
+  { key: 'starred', icon: 'star' },
+  { key: 'sent', icon: 'send' },
+  { key: 'spam', icon: 'report' },
+  { key: 'trash', icon: 'delete' },
 ];
 
 const isActive = (f: MailFilter) => route.path === '/' && filter.value === f;
@@ -54,7 +54,7 @@ function go(f: MailFilter) {
         @click="compose(); open = false"
       >
         <Icon name="edit_square" :size="18" />
-        Compose
+        {{ $t('nav.compose') }}
       </button>
     </div>
 
@@ -70,7 +70,7 @@ function go(f: MailFilter) {
       >
         <span v-if="isActive(item.key)" class="absolute left-0 top-1.5 bottom-1.5 w-1 bg-brand-600" />
         <Icon :name="item.icon" :size="20" :fill="isActive(item.key)" />
-        <span class="flex-1 text-left">{{ item.label }}</span>
+        <span class="flex-1 text-left">{{ $t(`nav.${item.key}`) }}</span>
         <span
           v-if="item.key === 'inbox' && activeMailbox?.unread"
           class="bg-brand-600 px-1.5 text-[11px] font-semibold text-white"
@@ -86,7 +86,7 @@ function go(f: MailFilter) {
           : 'text-neutral-600 hover:bg-neutral-100'"
       >
         <Icon name="settings" :size="20" :fill="onSettings" />
-        Settings
+        {{ $t('nav.settings') }}
       </NuxtLink>
     </nav>
 

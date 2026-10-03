@@ -13,7 +13,7 @@ const { compose } = useMail();
       class="ml-auto flex items-center gap-1 bg-brand-600 px-3 py-1.5 text-sm font-medium text-white active:scale-95"
       @click="compose()"
     >
-      <Icon name="edit_square" :size="16" /> New
+      <Icon name="edit_square" :size="16" /> {{ $t('nav.new') }}
     </button>
   </div>
 </template>

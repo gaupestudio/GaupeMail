@@ -1,0 +1,164 @@
+{
+  "nav": {
+    "inbox": "Inkorg",
+    "starred": "Stjärnmärkt",
+    "sent": "Skickat",
+    "spam": "Skräppost",
+    "trash": "Papperskorg",
+    "settings": "Inställningar",
+    "compose": "Nytt mejl",
+    "new": "Nytt"
+  },
+  "mail": {
+    "refresh": "Uppdatera",
+    "nothingHere": "Inget här.",
+    "noSubject": "(inget ämne)",
+    "noContent": "(inget innehåll)",
+    "selectMessage": "Välj ett meddelande att läsa",
+    "loading": "Laddar…",
+    "toRecipient": "Till {to}",
+    "to": "till",
+    "cc": "kopia"
+  },
+  "actions": {
+    "reply": "Svara",
+    "replyAll": "Svara alla",
+    "forward": "Vidarebefordra",
+    "star": "Stjärnmärk",
+    "starred": "Stjärnmärkt",
+    "spam": "Skräppost",
+    "notSpam": "Inte skräppost",
+    "spamScore": "SpamAssassin-poäng {score}",
+    "trash": "Papperskorg",
+    "restore": "Återställ",
+    "deleteForever": "Radera permanent",
+    "confirmDeleteForever": "Radera det här meddelandet permanent?"
+  },
+  "errors": {
+    "star": "Kunde inte stjärnmärka: {msg}",
+    "trash": "Kunde inte flytta till papperskorgen: {msg}",
+    "markSpam": "Kunde inte markera som skräppost: {msg}",
+    "notSpam": "Kunde inte flytta till inkorgen: {msg}",
+    "restore": "Kunde inte återställa: {msg}",
+    "delete": "Kunde inte radera: {msg}",
+    "generic": "Något gick fel"
+  },
+  "account": {
+    "switchMailbox": "Byt brevlåda",
+    "signOut": "Logga ut",
+    "noMailbox": "ingen brevlåda",
+    "language": "Språk"
+  },
+  "compose": {
+    "title": "Nytt meddelande",
+    "close": "Stäng",
+    "from": "Från",
+    "to": "Till",
+    "cc": "Kopia",
+    "bcc": "Hemlig kopia",
+    "ccBcc": "Kopia/Hemlig kopia",
+    "subject": "Ämne",
+    "recipientsPlaceholder": "namn{'@'}exempel.se, …",
+    "commaSeparated": "Kommaseparerade",
+    "attachFiles": "Bifoga filer",
+    "plainText": "Oformaterad text",
+    "richText": "Formaterad text",
+    "sizeOfMax": "{size} av 4 MB",
+    "bodyPlaceholder": "Skriv ditt meddelande…",
+    "linkUrl": "Länkadress",
+    "send": "Skicka",
+    "sending": "Skickar…",
+    "discard": "Släng",
+    "errors": {
+      "tooLarge": "Bilagorna överstiger 4 MB totalt",
+      "pickFrom": "Välj en avsändarbrevlåda",
+      "addRecipient": "Lägg till en mottagare",
+      "addSubject": "Lägg till ett ämne",
+      "writeMessage": "Skriv ett meddelande",
+      "sendFailed": "Det gick inte att skicka"
+    }
+  },
+  "reply": {
+    "wrote": "{when} skrev {who}:"
+  },
+  "login": {
+    "createAdmin": "Skapa administratörskontot",
+    "firstAccount": "Det här är det första kontot, så det blir administratör för {org}.",
+    "username": "Användarnamn",
+    "displayNameOptional": "Visningsnamn (valfritt)",
+    "waiting": "Väntar på nyckel…",
+    "createPasskey": "Skapa nyckel",
+    "signIn": "Logga in",
+    "enrollPasskey": "Registrera nyckel",
+    "signInWithPasskey": "Logga in med nyckel",
+    "enrollHint": "Fungerar för ett konto som en administratör har skapat och som ännu inte har någon nyckel."
+  },
+  "setup": {
+    "subtitle": "Konfigurera din organisation",
+    "orgName": "Organisationens namn",
+    "orgNameHint": "Visas i hela appen och används som arbetsytans identitet.",
+    "placeholder": "t.ex. Gaupestudio",
+    "saving": "Sparar…",
+    "continue": "Fortsätt",
+    "nameRequired": "Ange ett organisationsnamn",
+    "saveFailed": "Det gick inte att spara"
+  },
+  "settings": {
+    "title": "Inställningar",
+    "subtitle": "{org} · domäner, användare och brevlådor",
+    "failed": "misslyckades",
+    "save": "Spara",
+    "saved": "Sparat ✓",
+    "add": "Lägg till",
+    "delete": "radera",
+    "edit": "redigera",
+    "close": "stäng",
+    "mailboxCount": "inga brevlådor | {n} brevlåda | {n} brevlådor",
+    "org": {
+      "title": "Organisation",
+      "hint": "{name} visas i hela appen. {footer} är HTML som läggs till längst ner i varje meddelande som skickas från någon brevlåda (efter brevlådans egen sidfot, om den är angiven).",
+      "nameTerm": "Namnet",
+      "footerTerm": "E-postsidfoten",
+      "name": "Namn",
+      "footer": "E-postsidfot (HTML)"
+    },
+    "domains": {
+      "title": "Avsändardomäner",
+      "hint": "Varje domän använder sitt eget Cloudflare-konto. Klistra in konto-id:t och en API-token med behörigheten {permission}.",
+      "token": "token {hint}",
+      "none": "Inga domäner.",
+      "accountId": "cloudflare-konto-id",
+      "apiToken": "API-token (Send Email)",
+      "confirmDelete": "Radera {name} och dess brevlådor ({n})?"
+    },
+    "users": {
+      "title": "Användare",
+      "hint": "Nya användare registrerar sin egen nyckel från inloggningssidan (tillåtet tills de har en).",
+      "admin": "admin",
+      "passkeyCount": "{n} nyckel | {n} nycklar",
+      "notEnrolled": "inte registrerad",
+      "username": "användarnamn",
+      "displayName": "visningsnamn",
+      "add": "Lägg till användare",
+      "confirmDelete": "Radera användaren {name}?"
+    },
+    "mailboxes": {
+      "title": "Brevlådor",
+      "hint": "{senderName} visas som visningsnamn på utgående e-post. Varje brevlåda kan också ha en HTML-{footer} som läggs till i varje meddelande den skickar.",
+      "senderNameTerm": "Avsändarnamnet",
+      "footerTerm": "sidfot",
+      "owner": "ägare: {name}",
+      "hasFooter": "har sidfot",
+      "senderName": "Avsändarnamn",
+      "senderNamePlaceholder": "t.ex. Johan · Gaupestudio",
+      "footerHtml": "Sidfots-HTML (läggs till vid varje utskick)",
+      "none": "Inga brevlådor.",
+      "localPart": "hej",
+      "domain": "domän",
+      "ownerSelect": "ägare",
+      "senderNameOptional": "avsändarnamn (valfritt)",
+      "add": "Lägg till brevlåda",
+      "confirmDelete": "Radera {address}?"
+    }
+  }
+}

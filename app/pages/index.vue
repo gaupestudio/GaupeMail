@@ -2,14 +2,7 @@
 import type { MailDetail, MailRow } from '~/composables/useMail';
 
 const { filter, activeMailboxId, refreshTick, loadMailboxes } = useMail();
-
-const titles: Record<string, string> = {
-  inbox: 'Inbox',
-  starred: 'Starred',
-  sent: 'Sent Items',
-  spam: 'Spam',
-  trash: 'Trash',
-};
+const { t } = useI18n();
 
 const { data: mails, pending, refresh } = useAsyncData<MailRow[]>(
   'mails',
@@ -65,7 +58,7 @@ async function setStar(id: number, starred: boolean) {
       .map((m) => (m.id === id ? { ...m, starred: res.starred } : m))
       .filter((m) => !(filter.value === 'starred' && m.id === id && !res.starred));
   } catch (e) {
-    actionError.value = `Couldn't star: ${errMsg(e)}`;
+    actionError.value = t('errors.star', { msg: errMsg(e) });
   } finally {
     starBusy.value = false;
   }
@@ -78,7 +71,7 @@ async function trash(id: number) {
     dropRow(id);
     loadMailboxes(true);
   } catch (e) {
-    actionError.value = `Couldn't move to trash: ${errMsg(e)}`;
+    actionError.value = t('errors.trash', { msg: errMsg(e) });
   }
 }
 async function setSpam(id: number, spam: boolean) {
@@ -89,7 +82,7 @@ async function setSpam(id: number, spam: boolean) {
     else if (open.value && open.value.id === id) open.value = { ...open.value, spam };
     loadMailboxes(true);
   } catch (e) {
-    actionError.value = `Couldn't ${spam ? 'mark as spam' : 'move to inbox'}: ${errMsg(e)}`;
+    actionError.value = t(spam ? 'errors.markSpam' : 'errors.notSpam', { msg: errMsg(e) });
   }
 }
 async function restore(id: number) {
@@ -98,17 +91,17 @@ async function restore(id: number) {
     await $fetch(`/api/mails/${id}`, { method: 'PATCH', body: { deleted: false } });
     dropRow(id);
   } catch (e) {
-    actionError.value = `Couldn't restore: ${errMsg(e)}`;
+    actionError.value = t('errors.restore', { msg: errMsg(e) });
   }
 }
 async function destroy(id: number) {
-  if (!confirm('Delete this message permanently?')) return;
+  if (!confirm(t('actions.confirmDeleteForever'))) return;
   actionError.value = null;
   try {
     await $fetch(`/api/mails/${id}?hard=1`, { method: 'DELETE' });
     dropRow(id);
   } catch (e) {
-    actionError.value = `Couldn't delete: ${errMsg(e)}`;
+    actionError.value = t('errors.delete', { msg: errMsg(e) });
   }
 }
 </script>
@@ -116,14 +109,14 @@ async function destroy(id: number) {
 <template>
   <div class="flex h-full flex-col">
     <header class="flex items-center justify-between gap-3 border-b border-neutral-200 bg-white px-4 py-3.5 sm:px-5">
-      <h1 class="truncate text-lg font-bold tracking-tight">{{ titles[filter] }}</h1>
+      <h1 class="truncate text-lg font-bold tracking-tight">{{ t(`nav.${filter}`) }}</h1>
       <button
         class="flex items-center gap-1.5 border border-neutral-300 px-3 py-1.5 text-sm text-neutral-600 transition hover:bg-neutral-50 active:scale-95"
         :disabled="pending"
         @click="refresh()"
       >
         <Icon name="refresh" :size="16" :class="{ 'animate-spin': pending }" />
-        <span class="hidden sm:inline">Refresh</span>
+        <span class="hidden sm:inline">{{ t('mail.refresh') }}</span>
       </button>
     </header>
 

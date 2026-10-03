@@ -9,7 +9,8 @@ defineProps<{
 }>();
 defineEmits<{ select: [id: number] }>();
 
-const who = (m: MailRow) => (m.direction === 'OUTBOUND' ? `To ${m.to}` : m.fromName || m.from);
+const { t } = useI18n();
+const who = (m: MailRow) => (m.direction === 'OUTBOUND' ? t('mail.toRecipient', { to: m.to }) : m.fromName || m.from);
 const unread = (m: MailRow) => !m.read && m.direction === 'INBOUND';
 </script>
 
@@ -19,7 +20,7 @@ const unread = (m: MailRow) => !m.read && m.direction === 'INBOUND';
     :class="{ 'hidden lg:flex': selectedId }"
   >
     <p v-if="!pending && !mails.length" class="px-5 py-12 text-center text-sm text-neutral-400">
-      Nothing here.
+      {{ t('mail.nothingHere') }}
     </p>
 
     <TransitionGroup tag="ul" :name="animate ? 'list' : 'nolist'" class="relative">
@@ -38,7 +39,7 @@ const unread = (m: MailRow) => !m.read && m.direction === 'INBOUND';
             <span class="ml-auto shrink-0 text-[11px] text-neutral-400">{{ fmtShort(m.receivedAt) }}</span>
           </div>
           <div class="truncate text-sm" :class="{ 'font-medium': unread(m) }">
-            {{ m.subject || '(no subject)' }}
+            {{ m.subject || t('mail.noSubject') }}
           </div>
           <div class="flex items-center gap-1 truncate text-xs text-neutral-400">
             <Icon v-if="m.attachments" name="attach_file" :size="14" />

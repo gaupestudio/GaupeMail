@@ -5,6 +5,7 @@ const props = defineProps<{ mailboxes: Mailbox[]; fromId: number | null }>();
 const emit = defineEmits<{ close: []; sent: [] }>();
 
 const { draft } = useMail();
+const { t } = useI18n();
 const d = draft.value;
 draft.value = null; // consume
 
@@ -53,7 +54,7 @@ async function onFiles(e: Event) {
     });
   }
   input.value = '';
-  if (totalSize.value > MAX_TOTAL) error.value = 'Attachments exceed 4 MB total';
+  if (totalSize.value > MAX_TOTAL) error.value = t('compose.errors.tooLarge');
   else error.value = null;
 }
 const removeAttach = (i: number) => attachments.value.splice(i, 1);
@@ -63,15 +64,15 @@ function exec(command: string, value?: string) {
   document.execCommand(command, false, value);
 }
 function addLink() {
-  const url = prompt('Link URL', 'https://');
+  const url = prompt(t('compose.linkUrl'), 'https://');
   if (url) exec('createLink', url);
 }
 
 async function send() {
   error.value = null;
-  if (!fromId.value) return (error.value = 'Pick a From mailbox');
-  if (!to.value.trim()) return (error.value = 'Add a recipient');
-  if (!subject.value.trim()) return (error.value = 'Add a subject');
+  if (!fromId.value) return (error.value = t('compose.errors.pickFrom'));
+  if (!to.value.trim()) return (error.value = t('compose.errors.addRecipient'));
+  if (!subject.value.trim()) return (error.value = t('compose.errors.addSubject'));
 
   const payload: Record<string, unknown> = {
     mailboxId: fromId.value,
@@ -81,7 +82,7 @@ async function send() {
   if (cc.value.trim()) payload.cc = cc.value.trim();
   if (bcc.value.trim()) payload.bcc = bcc.value.trim();
 
-  if (totalSize.value > MAX_TOTAL) return (error.value = 'Attachments exceed 4 MB total');
+  if (totalSize.value > MAX_TOTAL) return (error.value = t('compose.errors.tooLarge'));
   if (attachments.value.length) {
     payload.attachments = attachments.value.map(({ filename, type, contentBase64 }) => ({
       filename,
@@ -92,11 +93,11 @@ async function send() {
 
   if (mode.value === 'rich') {
     const html = editor.value?.innerHTML?.trim() ?? '';
-    if (!html || html === '<br>') return (error.value = 'Write a message');
+    if (!html || html === '<br>') return (error.value = t('compose.errors.writeMessage'));
     payload.html = html;
     payload.text = editor.value?.innerText ?? '';
   } else {
-    if (!plainBody.value.trim()) return (error.value = 'Write a message');
+    if (!plainBody.value.trim()) return (error.value = t('compose.errors.writeMessage'));
     payload.text = plainBody.value;
   }
 
@@ -106,7 +107,7 @@ async function send() {
     emit('sent');
     emit('close');
   } catch (e: any) {
-    error.value = e?.data?.message || e?.statusMessage || e?.message || 'Send failed';
+    error.value = e?.data?.message || e?.statusMessage || e?.message || t('compose.errors.sendFailed');
   } finally {
     sending.value = false;
   }
@@ -130,10 +131,10 @@ const tools = [
 <template>
   <div class="flex h-full w-full flex-col bg-white">
     <header class="flex items-center justify-between border-b border-neutral-200 px-4 py-3">
-      <h2 class="text-sm font-semibold">New message</h2>
+      <h2 class="text-sm font-semibold">{{ t('compose.title') }}</h2>
       <button
         class="p-1 text-neutral-400 transition hover:bg-neutral-100 hover:text-neutral-700"
-        aria-label="Close"
+        :aria-label="t('compose.close')"
         @click="emit('close')"
       >
         <Icon name="close" :size="20" />
@@ -142,7 +143,7 @@ const tools = [
 
     <div class="flex-1 space-y-2.5 overflow-y-auto px-4 py-4">
       <label class="flex items-center gap-2 text-sm">
-        <span class="w-12 shrink-0 text-neutral-400">From</span>
+        <span class="w-12 shrink-0 text-neutral-400">{{ t('compose.from') }}</span>
         <select v-model="fromId" class="min-w-0 flex-1 border border-neutral-300 px-2 py-1.5 text-sm">
           <option v-for="b in mailboxes" :key="b.id" :value="b.id">
             {{ b.label ? `${b.label} · ${b.address}` : b.address }}
@@ -151,30 +152,30 @@ const tools = [
       </label>
 
       <div class="flex items-center gap-2 text-sm">
-        <span class="w-12 shrink-0 text-neutral-400">To</span>
-        <input v-model="to" type="text" placeholder="name@example.com, …"
+        <span class="w-12 shrink-0 text-neutral-400">{{ t('compose.to') }}</span>
+        <input v-model="to" type="text" :placeholder="t('compose.recipientsPlaceholder')"
           class="min-w-0 flex-1 border border-neutral-300 px-2 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100" />
         <button v-if="!showCc" class="shrink-0 text-xs text-neutral-400 transition hover:text-neutral-700" @click="showCc = true">
-          Cc/Bcc
+          {{ t('compose.ccBcc') }}
         </button>
       </div>
 
       <template v-if="showCc">
         <label class="flex items-center gap-2 text-sm">
-          <span class="w-12 shrink-0 text-neutral-400">Cc</span>
-          <input v-model="cc" type="text" placeholder="Comma-separated"
+          <span class="w-12 shrink-0 text-neutral-400">{{ t('compose.cc') }}</span>
+          <input v-model="cc" type="text" :placeholder="t('compose.commaSeparated')"
             class="min-w-0 flex-1 border border-neutral-300 px-2 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100" />
         </label>
         <label class="flex items-center gap-2 text-sm">
-          <span class="w-12 shrink-0 text-neutral-400">Bcc</span>
-          <input v-model="bcc" type="text" placeholder="Comma-separated"
+          <span class="w-12 shrink-0 text-neutral-400">{{ t('compose.bcc') }}</span>
+          <input v-model="bcc" type="text" :placeholder="t('compose.commaSeparated')"
             class="min-w-0 flex-1 border border-neutral-300 px-2 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100" />
         </label>
       </template>
 
       <label class="flex items-center gap-2 text-sm">
-        <span class="w-12 shrink-0 text-neutral-400">Subject</span>
-        <input v-model="subject" placeholder="Subject"
+        <span class="w-12 shrink-0 text-neutral-400">{{ t('compose.subject') }}</span>
+        <input v-model="subject" :placeholder="t('compose.subject')"
           class="min-w-0 flex-1 border border-neutral-300 px-2 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100" />
       </label>
 
@@ -196,13 +197,13 @@ const tools = [
         <div class="flex items-center gap-1">
           <button
             class="flex h-8 w-8 items-center justify-center text-neutral-600 transition hover:bg-neutral-100"
-            title="Attach files"
+            :title="t('compose.attachFiles')"
             @click="fileInput?.click()"
           >
             <Icon name="attach_file" :size="18" />
           </button>
           <button class="px-2 py-1 text-xs text-neutral-500 transition hover:bg-neutral-100" @click="mode = mode === 'rich' ? 'plain' : 'rich'">
-            {{ mode === 'rich' ? 'Plain text' : 'Rich text' }}
+            {{ mode === 'rich' ? t('compose.plainText') : t('compose.richText') }}
           </button>
         </div>
       </div>
@@ -225,7 +226,7 @@ const tools = [
           class="px-1 text-[11px]"
           :class="totalSize > MAX_TOTAL ? 'text-brand-600' : 'text-neutral-400'"
         >
-          {{ fmtBytes(totalSize) }} of 4 MB
+          {{ t('compose.sizeOfMax', { size: fmtBytes(totalSize) }) }}
         </li>
       </ul>
 
@@ -239,7 +240,7 @@ const tools = [
         v-show="mode === 'plain'"
         v-model="plainBody"
         rows="12"
-        placeholder="Write your message…"
+        :placeholder="t('compose.bodyPlaceholder')"
         class="w-full border border-neutral-300 px-3 py-2 text-sm leading-relaxed outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
       />
 
@@ -255,9 +256,9 @@ const tools = [
         @click="send"
       >
         <Icon name="send" :size="16" />
-        {{ sending ? 'Sending…' : 'Send' }}
+        {{ sending ? t('compose.sending') : t('compose.send') }}
       </button>
-      <button class="text-sm text-neutral-500 transition hover:text-neutral-800" @click="emit('close')">Discard</button>
+      <button class="text-sm text-neutral-500 transition hover:text-neutral-800" @click="emit('close')">{{ t('compose.discard') }}</button>
     </footer>
   </div>
 </template>

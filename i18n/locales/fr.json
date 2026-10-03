@@ -1,0 +1,164 @@
+{
+  "nav": {
+    "inbox": "Boîte de réception",
+    "starred": "Suivis",
+    "sent": "Éléments envoyés",
+    "spam": "Spam",
+    "trash": "Corbeille",
+    "settings": "Paramètres",
+    "compose": "Nouveau message",
+    "new": "Nouveau"
+  },
+  "mail": {
+    "refresh": "Actualiser",
+    "nothingHere": "Rien ici.",
+    "noSubject": "(sans objet)",
+    "noContent": "(aucun contenu)",
+    "selectMessage": "Sélectionnez un message à lire",
+    "loading": "Chargement…",
+    "toRecipient": "À {to}",
+    "to": "à",
+    "cc": "cc"
+  },
+  "actions": {
+    "reply": "Répondre",
+    "replyAll": "Répondre à tous",
+    "forward": "Transférer",
+    "star": "Suivre",
+    "starred": "Suivi",
+    "spam": "Spam",
+    "notSpam": "Pas un spam",
+    "spamScore": "Score SpamAssassin {score}",
+    "trash": "Corbeille",
+    "restore": "Restaurer",
+    "deleteForever": "Supprimer définitivement",
+    "confirmDeleteForever": "Supprimer définitivement ce message ?"
+  },
+  "errors": {
+    "star": "Impossible de suivre : {msg}",
+    "trash": "Impossible de déplacer vers la corbeille : {msg}",
+    "markSpam": "Impossible de marquer comme spam : {msg}",
+    "notSpam": "Impossible de déplacer vers la boîte de réception : {msg}",
+    "restore": "Impossible de restaurer : {msg}",
+    "delete": "Impossible de supprimer : {msg}",
+    "generic": "Une erreur s'est produite"
+  },
+  "account": {
+    "switchMailbox": "Changer de boîte mail",
+    "signOut": "Se déconnecter",
+    "noMailbox": "aucune boîte mail",
+    "language": "Langue"
+  },
+  "compose": {
+    "title": "Nouveau message",
+    "close": "Fermer",
+    "from": "De",
+    "to": "À",
+    "cc": "Cc",
+    "bcc": "Cci",
+    "ccBcc": "Cc/Cci",
+    "subject": "Objet",
+    "recipientsPlaceholder": "nom{'@'}exemple.fr, …",
+    "commaSeparated": "Séparés par des virgules",
+    "attachFiles": "Joindre des fichiers",
+    "plainText": "Texte brut",
+    "richText": "Texte enrichi",
+    "sizeOfMax": "{size} sur 4 Mo",
+    "bodyPlaceholder": "Rédigez votre message…",
+    "linkUrl": "URL du lien",
+    "send": "Envoyer",
+    "sending": "Envoi…",
+    "discard": "Abandonner",
+    "errors": {
+      "tooLarge": "Les pièces jointes dépassent 4 Mo au total",
+      "pickFrom": "Choisissez une boîte mail d'expédition",
+      "addRecipient": "Ajoutez un destinataire",
+      "addSubject": "Ajoutez un objet",
+      "writeMessage": "Rédigez un message",
+      "sendFailed": "Échec de l'envoi"
+    }
+  },
+  "reply": {
+    "wrote": "Le {when}, {who} a écrit :"
+  },
+  "login": {
+    "createAdmin": "Créer le compte administrateur",
+    "firstAccount": "C'est le premier compte : il devient administrateur de {org}.",
+    "username": "Nom d'utilisateur",
+    "displayNameOptional": "Nom affiché (facultatif)",
+    "waiting": "En attente de la clé d'accès…",
+    "createPasskey": "Créer une clé d'accès",
+    "signIn": "Se connecter",
+    "enrollPasskey": "Enregistrer une clé d'accès",
+    "signInWithPasskey": "Se connecter avec une clé d'accès",
+    "enrollHint": "Pour un compte créé par un administrateur qui n'a pas encore de clé d'accès."
+  },
+  "setup": {
+    "subtitle": "Configurez votre organisation",
+    "orgName": "Nom de l'organisation",
+    "orgNameHint": "Affiché dans toute l'application et utilisé comme identité de votre espace de travail.",
+    "placeholder": "p. ex. Gaupestudio",
+    "saving": "Enregistrement…",
+    "continue": "Continuer",
+    "nameRequired": "Saisissez un nom d'organisation",
+    "saveFailed": "Impossible d'enregistrer"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "subtitle": "{org} · domaines, utilisateurs et boîtes mail",
+    "failed": "échec",
+    "save": "Enregistrer",
+    "saved": "Enregistré ✓",
+    "add": "Ajouter",
+    "delete": "supprimer",
+    "edit": "modifier",
+    "close": "fermer",
+    "mailboxCount": "aucune boîte mail | {n} boîte mail | {n} boîtes mail",
+    "org": {
+      "title": "Organisation",
+      "hint": "Le {name} s'affiche dans toute l'application. Le {footer} est du HTML ajouté au bas de chaque message envoyé depuis n'importe quelle boîte mail (après le pied de page propre à la boîte, s'il est défini).",
+      "nameTerm": "nom",
+      "footerTerm": "pied de page des e-mails",
+      "name": "Nom",
+      "footer": "Pied de page des e-mails (HTML)"
+    },
+    "domains": {
+      "title": "Domaines d'envoi",
+      "hint": "Chaque domaine utilise son propre compte Cloudflare. Collez l'identifiant du compte et un jeton d'API disposant de l'autorisation {permission}.",
+      "token": "jeton {hint}",
+      "none": "Aucun domaine.",
+      "accountId": "identifiant du compte cloudflare",
+      "apiToken": "Jeton d'API (Send Email)",
+      "confirmDelete": "Supprimer {name} et ses boîtes mail ({n}) ?"
+    },
+    "users": {
+      "title": "Utilisateurs",
+      "hint": "Les nouveaux utilisateurs enregistrent eux-mêmes leur clé d'accès depuis la page de connexion (autorisé tant qu'ils n'en ont pas).",
+      "admin": "admin",
+      "passkeyCount": "{n} clé d'accès | {n} clés d'accès",
+      "notEnrolled": "non enregistré",
+      "username": "nom d'utilisateur",
+      "displayName": "nom affiché",
+      "add": "Ajouter un utilisateur",
+      "confirmDelete": "Supprimer l'utilisateur {name} ?"
+    },
+    "mailboxes": {
+      "title": "Boîtes mail",
+      "hint": "Le {senderName} s'affiche comme nom d'expéditeur sur les e-mails sortants. Chaque boîte mail peut aussi avoir un {footer} HTML ajouté à chaque message qu'elle envoie.",
+      "senderNameTerm": "nom d'expéditeur",
+      "footerTerm": "pied de page",
+      "owner": "propriétaire : {name}",
+      "hasFooter": "pied de page défini",
+      "senderName": "Nom d'expéditeur",
+      "senderNamePlaceholder": "p. ex. Johan · Gaupestudio",
+      "footerHtml": "HTML du pied de page (ajouté à chaque envoi)",
+      "none": "Aucune boîte mail.",
+      "localPart": "bonjour",
+      "domain": "domaine",
+      "ownerSelect": "propriétaire",
+      "senderNameOptional": "nom d'expéditeur (facultatif)",
+      "add": "Ajouter une boîte mail",
+      "confirmDelete": "Supprimer {address} ?"
+    }
+  }
+}

@@ -20,11 +20,11 @@ defineEmits<{
 <template>
   <section class="min-w-0 flex-1 overflow-y-auto bg-neutral-50" :class="{ 'hidden lg:block': !selectedId }">
     <div v-if="!selectedId" class="flex h-full items-center justify-center p-10 text-center text-sm text-neutral-400">
-      Select a message to read
+      {{ $t('mail.selectMessage') }}
     </div>
 
     <Transition name="reveal" mode="out-in">
-      <div v-if="pending" key="l" class="p-8 text-sm text-neutral-400">Loading…</div>
+      <div v-if="pending" key="l" class="p-8 text-sm text-neutral-400">{{ $t('mail.loading') }}</div>
       <article v-else-if="mail" :key="mail.id" class="mx-auto max-w-3xl px-4 py-5 sm:px-8 sm:py-8">
         <MailActions
           :mail="mail"
@@ -37,7 +37,7 @@ defineEmits<{
           @close="$emit('close')"
         />
 
-        <h2 class="text-xl font-bold tracking-tight sm:text-2xl">{{ mail.subject || '(no subject)' }}</h2>
+        <h2 class="text-xl font-bold tracking-tight sm:text-2xl">{{ mail.subject || $t('mail.noSubject') }}</h2>
 
         <div class="mt-4 flex items-center gap-3 border-b border-neutral-200 pb-5 text-sm">
           <span class="flex h-9 w-9 shrink-0 items-center justify-center bg-gradient-to-br from-brand-400 to-brand-600 text-xs font-bold text-white">
@@ -49,14 +49,14 @@ defineEmits<{
               <span v-if="mail.fromName" class="text-neutral-400"> &lt;{{ mail.from }}&gt;</span>
             </div>
             <div class="truncate text-xs text-neutral-400">
-              to {{ mail.to }}<span v-if="mail.cc"> · cc {{ mail.cc }}</span> · {{ fmtFull(mail.receivedAt) }}
+              {{ $t('mail.to') }} {{ mail.to }}<span v-if="mail.cc"> · {{ $t('mail.cc') }} {{ mail.cc }}</span> · {{ fmtFull(mail.receivedAt) }}
             </div>
           </div>
         </div>
 
         <div class="mt-6">
           <HtmlMail v-if="mail.bodyHTML" :html="mail.bodyHTML" />
-          <pre v-else class="whitespace-pre-wrap font-sans text-sm leading-relaxed text-neutral-800">{{ mail.bodyText || '(no content)' }}</pre>
+          <pre v-else class="whitespace-pre-wrap font-sans text-sm leading-relaxed text-neutral-800">{{ mail.bodyText || $t('mail.noContent') }}</pre>
         </div>
 
         <div v-if="mail.attachments?.length" class="mt-8 flex flex-wrap gap-2">

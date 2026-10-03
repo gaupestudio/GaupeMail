@@ -8,11 +8,28 @@ export default defineNuxtConfig({
   // (localStorage mailbox selection, locale/timezone date formatting, etc.).
   ssr: false,
   css: ['~/assets/css/main.css'],
+  modules: ['@nuxtjs/i18n'],
+  i18n: {
+    // Private app: no locale in the URL. First visit picks from the browser,
+    // after that the choice in the account menu is kept in a cookie.
+    strategy: 'no_prefix',
+    defaultLocale: 'en-US',
+    detectBrowserLanguage: { useCookie: true, cookieKey: 'gm_locale', fallbackLocale: 'en-US' },
+    locales: [
+      { code: 'en-US', language: 'en-US', name: 'English (US)', file: 'en-US.json' },
+      { code: 'en-GB', language: 'en-GB', name: 'English (UK)', file: 'en-GB.json' },
+      { code: 'da', language: 'da-DK', name: 'Dansk', file: 'da.json' },
+      { code: 'de', language: 'de-DE', name: 'Deutsch', file: 'de.json' },
+      { code: 'fr', language: 'fr-FR', name: 'Français', file: 'fr.json' },
+      { code: 'nb', language: 'nb-NO', name: 'Norsk (bokmål)', file: 'nb.json' },
+      { code: 'nn', language: 'nn-NO', name: 'Norsk (nynorsk)', file: 'nn.json' },
+      { code: 'sv', language: 'sv-SE', name: 'Svenska', file: 'sv.json' },
+    ],
+  },
   app: {
     head: {
       title: 'GaupeMail',
       titleTemplate: (t?: string) => (t && t !== 'GaupeMail' ? `${t} · GaupeMail` : 'GaupeMail'),
-      htmlAttrs: { lang: 'en' },
       meta: [
         { name: 'robots', content: 'noindex, nofollow' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },

@@ -10,6 +10,41 @@ export interface Mailbox {
   unread: number;
 }
 
+// one row in the message list (GET /api/mails)
+export interface MailRow {
+  id: number;
+  direction: 'INBOUND' | 'OUTBOUND';
+  from: string;
+  fromName: string | null;
+  to: string;
+  subject: string;
+  receivedAt: string;
+  read: boolean;
+  starred: boolean;
+  attachments: number;
+  isHtml: boolean;
+  preview: string;
+}
+
+// a fully opened message (GET /api/mails/:id)
+export interface MailDetail {
+  id: number;
+  direction: 'INBOUND' | 'OUTBOUND';
+  from: string;
+  fromName: string | null;
+  to: string;
+  cc: string | null;
+  subject: string;
+  bodyText: string | null;
+  bodyHTML: string | null;
+  receivedAt: string;
+  starred: boolean;
+  deleted: boolean;
+  read: boolean;
+  mailbox: string;
+  attachments: { id: number; filename: string; contentType: string; size: number }[];
+}
+
 export interface Draft {
   fromId?: number | null;
   to?: string;

@@ -1,4 +1,5 @@
-// GaupeMail — private mail system for the Gaupestudio "organization" (hardcoded).
+// GaupeMail — self-hosted mail system. Each install serves one organization,
+// named during setup (stored in Setting "orgName").
 // Docs: https://pris.ly/d/prisma-schema
 
 generator client {
@@ -110,7 +111,7 @@ model Attachment {
   data        Bytes
 }
 
-// Org-wide key/value settings for the single Gaupestudio "organization".
+// Org-wide key/value settings (e.g. key "orgName").
 // e.g. key "orgFooterHtml" — HTML appended to every outbound message.
 model Setting {
   key       String   @id

@@ -159,6 +159,21 @@
       "senderNameOptional": "afsendernavn (valgfrit)",
       "add": "Tilføj postkasse",
       "confirmDelete": "Slet {address}?"
+    },
+    "version": {
+      "title": "Version",
+      "installed": "Installeret",
+      "latest": "Nyeste udgivelse",
+      "status": "Status",
+      "checking": "Tjekker…",
+      "upToDate": "Opdateret",
+      "checkFailed": "Kunne ikke tjekke GitHub for opdateringer",
+      "viewRelease": "Se v{version} på GitHub",
+      "allReleases": "Alle udgivelser på GitHub"
     }
+  },
+  "updates": {
+    "needUpdate": "Du skal opdatere",
+    "prerelease": "forhåndsudgivelse"
   }
 }

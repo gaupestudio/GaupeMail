@@ -159,6 +159,21 @@
       "senderNameOptional": "nom d'expéditeur (facultatif)",
       "add": "Ajouter une boîte mail",
       "confirmDelete": "Supprimer {address} ?"
+    },
+    "version": {
+      "title": "Version",
+      "installed": "Installée",
+      "latest": "Dernière version",
+      "status": "État",
+      "checking": "Vérification…",
+      "upToDate": "À jour",
+      "checkFailed": "Impossible de vérifier les mises à jour sur GitHub",
+      "viewRelease": "Voir la v{version} sur GitHub",
+      "allReleases": "Toutes les versions sur GitHub"
     }
+  },
+  "updates": {
+    "needUpdate": "Mise à jour requise",
+    "prerelease": "préversion"
   }
 }

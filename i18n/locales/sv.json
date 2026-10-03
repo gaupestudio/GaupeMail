@@ -159,6 +159,21 @@
       "senderNameOptional": "avsändarnamn (valfritt)",
       "add": "Lägg till brevlåda",
       "confirmDelete": "Radera {address}?"
+    },
+    "version": {
+      "title": "Version",
+      "installed": "Installerad",
+      "latest": "Senaste version",
+      "status": "Status",
+      "checking": "Kontrollerar…",
+      "upToDate": "Uppdaterad",
+      "checkFailed": "Kunde inte söka efter uppdateringar på GitHub",
+      "viewRelease": "Visa v{version} på GitHub",
+      "allReleases": "Alla versioner på GitHub"
     }
+  },
+  "updates": {
+    "needUpdate": "Du behöver uppdatera",
+    "prerelease": "förhandsversion"
   }
 }

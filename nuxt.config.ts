@@ -1,16 +1,17 @@
 import tailwindcss from '@tailwindcss/vite';
+import pkg from './package.json';
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  // Private mail client — render as a SPA. No SSR means no hydration mismatches
+  // Logged-in mail client — render as a SPA. No SSR means no hydration mismatches
   // (localStorage mailbox selection, locale/timezone date formatting, etc.).
   ssr: false,
   css: ['~/assets/css/main.css'],
   modules: ['@nuxtjs/i18n'],
   i18n: {
-    // Private app: no locale in the URL. First visit picks from the browser,
+    // No locale in the URL. First visit picks from the browser,
     // after that the choice in the account menu is kept in a cookie.
     strategy: 'no_prefix',
     defaultLocale: 'en-US',
@@ -66,5 +67,10 @@ export default defineNuxtConfig({
     // Command that reads a raw message on stdin and prints `score/threshold`
     // (e.g. `spamc -c`). Empty disables spam filtering.
     spamAssassinFile: '',
+    public: {
+      appVersion: pkg.version,
+      // GitHub repo checked for new releases (Settings → Version & updates).
+      githubRepo: 'gaupestudio/GaupeMail',
+    },
   },
 });

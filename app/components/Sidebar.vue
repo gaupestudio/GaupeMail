@@ -8,6 +8,8 @@ const { user } = useAuth();
 const { orgName } = useOrg();
 const route = useRoute();
 const { filter, activeMailbox, compose } = useMail();
+const { info: update, load: checkUpdate } = useUpdateCheck();
+watch(() => user.value?.isAdmin, (admin) => admin && checkUpdate(), { immediate: true });
 
 const nav: { key: MailFilter; icon: string }[] = [
   { key: 'inbox', icon: 'inbox' },
@@ -88,6 +90,22 @@ function go(f: MailFilter) {
         <Icon name="settings" :size="20" :fill="onSettings" />
         {{ $t('nav.settings') }}
       </NuxtLink>
+
+      <a
+        v-if="user?.isAdmin && update?.updateAvailable"
+        :href="update.releaseUrl ?? update.releasesUrl"
+        target="_blank"
+        rel="noopener"
+        class="mt-2 flex w-full items-center gap-3 bg-brand-600 px-3 py-2 text-sm font-semibold text-white shadow-sm shadow-brand-600/20 transition hover:bg-brand-700 active:scale-[0.98]"
+      >
+        <Icon name="open_in_new" :size="20" />
+        <span class="min-w-0 flex-1 leading-tight">
+          {{ $t('updates.needUpdate') }}
+          <span class="block text-[11px] font-normal text-white/80">
+            v{{ update.current }} → v{{ update.latest }}<template v-if="update.prerelease"> ({{ $t('updates.prerelease') }})</template>
+          </span>
+        </span>
+      </a>
     </nav>
 
     <AccountMenu />

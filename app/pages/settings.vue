@@ -5,6 +5,9 @@ interface MailboxRow { id: number; address: string; label: string | null; signat
 
 const { t } = useI18n();
 
+const { info: update, load: checkUpdate } = useUpdateCheck();
+onMounted(checkUpdate);
+
 const { data: domains, refresh: rDomains } = useFetch<Domain[]>('/api/domains', { lazy: true, default: () => [] });
 const { data: users, refresh: rUsers } = useFetch<UserRow[]>('/api/users', { lazy: true, default: () => [] });
 const { data: boxes, refresh: rBoxes } = useFetch<MailboxRow[]>('/api/mailboxes', { query: { all: 1 }, lazy: true, default: () => [] });
@@ -274,6 +277,43 @@ async function saveBox(id: number) {
             <input v-model="nb.label" :placeholder="t('settings.mailboxes.senderNameOptional')" class="w-44 border border-neutral-300 px-3 py-1.5 text-sm" />
             <button class="bg-brand-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-700 active:scale-95">{{ t('settings.mailboxes.add') }}</button>
           </form>
+        </div>
+      </section>
+
+      <!-- Version -->
+      <section>
+        <h2 class="mb-3 text-xs font-semibold uppercase tracking-wide text-neutral-400">{{ t('settings.version.title') }}</h2>
+        <div class="space-y-3 border border-neutral-200 bg-white p-4 text-sm shadow-sm">
+          <dl class="grid grid-cols-[auto_1fr] gap-x-6 gap-y-1.5">
+            <dt class="text-neutral-500">{{ t('settings.version.installed') }}</dt>
+            <dd class="font-mono font-medium">v{{ update?.current ?? $config.public.appVersion }}</dd>
+            <dt class="text-neutral-500">{{ t('settings.version.latest') }}</dt>
+            <dd>
+              <template v-if="update?.latest">
+                <span class="font-mono font-medium">v{{ update.latest }}</span>
+                <span v-if="update.prerelease" class="ml-1.5 bg-amber-100 px-1.5 py-0.5 text-xs font-medium text-amber-700">{{ t('updates.prerelease') }}</span>
+                <span v-if="update.publishedAt" class="ml-1.5 text-xs text-neutral-400">{{ fmtFull(update.publishedAt) }}</span>
+              </template>
+              <span v-else class="text-neutral-400">—</span>
+            </dd>
+            <dt class="text-neutral-500">{{ t('settings.version.status') }}</dt>
+            <dd>
+              <span v-if="!update" class="text-neutral-400">{{ t('settings.version.checking') }}</span>
+              <span v-else-if="update.checkFailed" class="text-amber-600">{{ t('settings.version.checkFailed') }}</span>
+              <span v-else-if="update.updateAvailable" class="font-medium text-brand-600">{{ t('updates.needUpdate') }}</span>
+              <span v-else class="text-green-600">{{ t('settings.version.upToDate') }}</span>
+            </dd>
+          </dl>
+          <div class="flex flex-wrap gap-4 border-t border-neutral-100 pt-3 text-xs">
+            <a v-if="update?.updateAvailable && update.releaseUrl" :href="update.releaseUrl" target="_blank" rel="noopener"
+              class="flex items-center gap-1 font-medium text-brand-600 hover:underline">
+              <Icon name="open_in_new" :size="14" /> {{ t('settings.version.viewRelease', { version: update.latest }) }}
+            </a>
+            <a :href="update?.releasesUrl ?? `https://github.com/${$config.public.githubRepo}/releases`" target="_blank" rel="noopener"
+              class="flex items-center gap-1 text-neutral-600 hover:underline">
+              <Icon name="open_in_new" :size="14" /> {{ t('settings.version.allReleases') }}
+            </a>
+          </div>
         </div>
       </section>
     </div>

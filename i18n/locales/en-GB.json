@@ -159,6 +159,21 @@
       "senderNameOptional": "sender name (optional)",
       "add": "Add mailbox",
       "confirmDelete": "Delete {address}?"
+    },
+    "version": {
+      "title": "Version",
+      "installed": "Installed",
+      "latest": "Latest release",
+      "status": "Status",
+      "checking": "Checking…",
+      "upToDate": "Up to date",
+      "checkFailed": "Couldn't check GitHub for updates",
+      "viewRelease": "View v{version} on GitHub",
+      "allReleases": "All releases on GitHub"
     }
+  },
+  "updates": {
+    "needUpdate": "You need to update",
+    "prerelease": "pre-release"
   }
 }

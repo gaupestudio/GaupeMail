@@ -159,6 +159,21 @@
       "senderNameOptional": "Absendername (optional)",
       "add": "Postfach hinzufügen",
       "confirmDelete": "{address} löschen?"
+    },
+    "version": {
+      "title": "Version",
+      "installed": "Installiert",
+      "latest": "Neueste Version",
+      "status": "Status",
+      "checking": "Wird geprüft…",
+      "upToDate": "Aktuell",
+      "checkFailed": "Suche nach Updates auf GitHub fehlgeschlagen",
+      "viewRelease": "v{version} auf GitHub ansehen",
+      "allReleases": "Alle Versionen auf GitHub"
     }
+  },
+  "updates": {
+    "needUpdate": "Du musst aktualisieren",
+    "prerelease": "Vorabversion"
   }
 }

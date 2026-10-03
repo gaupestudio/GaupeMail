@@ -132,7 +132,7 @@ const tools = [
     <header class="flex items-center justify-between border-b border-neutral-200 px-4 py-3">
       <h2 class="text-sm font-semibold">New message</h2>
       <button
-        class="rounded-md p-1 text-neutral-400 transition hover:bg-neutral-100 hover:text-neutral-700"
+        class="p-1 text-neutral-400 transition hover:bg-neutral-100 hover:text-neutral-700"
         aria-label="Close"
         @click="emit('close')"
       >
@@ -143,7 +143,7 @@ const tools = [
     <div class="flex-1 space-y-2.5 overflow-y-auto px-4 py-4">
       <label class="flex items-center gap-2 text-sm">
         <span class="w-12 shrink-0 text-neutral-400">From</span>
-        <select v-model="fromId" class="min-w-0 flex-1 rounded-lg border border-neutral-300 px-2 py-1.5 text-sm">
+        <select v-model="fromId" class="min-w-0 flex-1 border border-neutral-300 px-2 py-1.5 text-sm">
           <option v-for="b in mailboxes" :key="b.id" :value="b.id">
             {{ b.label ? `${b.label} · ${b.address}` : b.address }}
           </option>
@@ -153,7 +153,7 @@ const tools = [
       <div class="flex items-center gap-2 text-sm">
         <span class="w-12 shrink-0 text-neutral-400">To</span>
         <input v-model="to" type="text" placeholder="name@example.com, …"
-          class="min-w-0 flex-1 rounded-lg border border-neutral-300 px-2 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100" />
+          class="min-w-0 flex-1 border border-neutral-300 px-2 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100" />
         <button v-if="!showCc" class="shrink-0 text-xs text-neutral-400 transition hover:text-neutral-700" @click="showCc = true">
           Cc/Bcc
         </button>
@@ -163,19 +163,19 @@ const tools = [
         <label class="flex items-center gap-2 text-sm">
           <span class="w-12 shrink-0 text-neutral-400">Cc</span>
           <input v-model="cc" type="text" placeholder="Comma-separated"
-            class="min-w-0 flex-1 rounded-lg border border-neutral-300 px-2 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100" />
+            class="min-w-0 flex-1 border border-neutral-300 px-2 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100" />
         </label>
         <label class="flex items-center gap-2 text-sm">
           <span class="w-12 shrink-0 text-neutral-400">Bcc</span>
           <input v-model="bcc" type="text" placeholder="Comma-separated"
-            class="min-w-0 flex-1 rounded-lg border border-neutral-300 px-2 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100" />
+            class="min-w-0 flex-1 border border-neutral-300 px-2 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100" />
         </label>
       </template>
 
       <label class="flex items-center gap-2 text-sm">
         <span class="w-12 shrink-0 text-neutral-400">Subject</span>
         <input v-model="subject" placeholder="Subject"
-          class="min-w-0 flex-1 rounded-lg border border-neutral-300 px-2 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100" />
+          class="min-w-0 flex-1 border border-neutral-300 px-2 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100" />
       </label>
 
       <div class="flex items-center justify-between pt-1.5">
@@ -183,25 +183,25 @@ const tools = [
           <button
             v-for="t in tools"
             :key="t.c"
-            class="flex h-8 w-8 items-center justify-center rounded-md text-neutral-600 transition hover:bg-neutral-100"
+            class="flex h-8 w-8 items-center justify-center text-neutral-600 transition hover:bg-neutral-100"
             @click="exec(t.c)"
           >
             <Icon :name="t.icon" :size="18" />
           </button>
-          <button class="flex h-8 w-8 items-center justify-center rounded-md text-neutral-600 transition hover:bg-neutral-100" @click="addLink">
+          <button class="flex h-8 w-8 items-center justify-center text-neutral-600 transition hover:bg-neutral-100" @click="addLink">
             <Icon name="link" :size="18" />
           </button>
         </div>
         <div v-else />
         <div class="flex items-center gap-1">
           <button
-            class="flex h-8 w-8 items-center justify-center rounded-md text-neutral-600 transition hover:bg-neutral-100"
+            class="flex h-8 w-8 items-center justify-center text-neutral-600 transition hover:bg-neutral-100"
             title="Attach files"
             @click="fileInput?.click()"
           >
             <Icon name="attach_file" :size="18" />
           </button>
-          <button class="rounded-md px-2 py-1 text-xs text-neutral-500 transition hover:bg-neutral-100" @click="mode = mode === 'rich' ? 'plain' : 'rich'">
+          <button class="px-2 py-1 text-xs text-neutral-500 transition hover:bg-neutral-100" @click="mode = mode === 'rich' ? 'plain' : 'rich'">
             {{ mode === 'rich' ? 'Plain text' : 'Rich text' }}
           </button>
         </div>
@@ -212,7 +212,7 @@ const tools = [
         <li
           v-for="(a, i) in attachments"
           :key="i"
-          class="flex items-center gap-2 rounded-lg border border-neutral-200 bg-neutral-50 px-2.5 py-1.5 text-xs"
+          class="flex items-center gap-2 border border-neutral-200 bg-neutral-50 px-2.5 py-1.5 text-xs"
         >
           <Icon name="attach_file" :size="14" class="shrink-0 text-neutral-400" />
           <span class="min-w-0 flex-1 truncate">{{ a.filename }}</span>
@@ -233,25 +233,25 @@ const tools = [
         v-show="mode === 'rich'"
         ref="editor"
         contenteditable="true"
-        class="min-h-56 w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm leading-relaxed outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100 [&_a]:text-brand-600 [&_blockquote]:border-l-2 [&_blockquote]:border-neutral-200 [&_blockquote]:pl-3 [&_blockquote]:text-neutral-500 [&_ul]:list-disc [&_ul]:pl-5"
+        class="min-h-56 w-full border border-neutral-300 px-3 py-2 text-sm leading-relaxed outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100 [&_a]:text-brand-600 [&_blockquote]:border-l-2 [&_blockquote]:border-neutral-200 [&_blockquote]:pl-3 [&_blockquote]:text-neutral-500 [&_ul]:list-disc [&_ul]:pl-5"
       />
       <textarea
         v-show="mode === 'plain'"
         v-model="plainBody"
         rows="12"
         placeholder="Write your message…"
-        class="w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm leading-relaxed outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
+        class="w-full border border-neutral-300 px-3 py-2 text-sm leading-relaxed outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
       />
 
       <Transition name="fade">
-        <p v-if="error" class="rounded-md bg-brand-50 px-3 py-2 text-sm text-brand-700">{{ error }}</p>
+        <p v-if="error" class="bg-brand-50 px-3 py-2 text-sm text-brand-700">{{ error }}</p>
       </Transition>
     </div>
 
     <footer class="flex items-center gap-3 border-t border-neutral-200 px-4 py-3">
       <button
         :disabled="sending"
-        class="flex items-center gap-1.5 rounded-lg bg-brand-600 px-5 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-brand-700 active:scale-95 disabled:opacity-50"
+        class="flex items-center gap-1.5 bg-brand-600 px-5 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-brand-700 active:scale-95 disabled:opacity-50"
         @click="send"
       >
         <Icon name="send" :size="16" />

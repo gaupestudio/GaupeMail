@@ -104,7 +104,7 @@ async function saveBox(id: number) {
     <p class="mb-8 text-sm text-neutral-400">{{ settings?.orgName || 'GaupeMail' }} · domains, users &amp; mailboxes</p>
 
     <Transition name="fade">
-      <p v-if="err" class="mb-6 rounded-lg bg-brand-50 px-3 py-2 text-sm text-brand-700">{{ err }}</p>
+      <p v-if="err" class="mb-6 bg-brand-50 px-3 py-2 text-sm text-brand-700">{{ err }}</p>
     </Transition>
 
     <div class="space-y-10">
@@ -116,13 +116,13 @@ async function saveBox(id: number) {
           <span class="font-medium">email footer</span> is HTML appended to the bottom of every message sent
           from any mailbox (after the per-mailbox footer, if set).
         </p>
-        <div class="space-y-4 rounded-xl border border-neutral-200 bg-white p-4 shadow-sm">
+        <div class="space-y-4 border border-neutral-200 bg-white p-4 shadow-sm">
           <div>
             <label class="block text-xs font-medium text-neutral-500">Name</label>
             <input
               v-model="orgName"
               placeholder="Gaupestudio"
-              class="mt-1 w-full max-w-xs rounded-lg border border-neutral-300 px-3 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
+              class="mt-1 w-full max-w-xs border border-neutral-300 px-3 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
             />
           </div>
           <div>
@@ -131,12 +131,12 @@ async function saveBox(id: number) {
               v-model="orgFooter"
               rows="5"
               placeholder="&lt;p style=&quot;color:#888;font-size:12px&quot;&gt;Gaupestudio · Copenhagen&lt;/p&gt;"
-              class="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-2 font-mono text-xs outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
+              class="mt-1 w-full border border-neutral-300 px-3 py-2 font-mono text-xs outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100"
             />
           </div>
           <div class="flex items-center gap-3">
             <button
-              class="rounded-lg bg-brand-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-700 active:scale-95"
+              class="bg-brand-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-700 active:scale-95"
               @click="saveOrg"
             >
               Save
@@ -155,7 +155,7 @@ async function saveBox(id: number) {
           Each domain uses its own Cloudflare account. Paste the account id and an API token with the
           <span class="font-medium">Send Email</span> permission.
         </p>
-        <div class="overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm">
+        <div class="overflow-hidden border border-neutral-200 bg-white shadow-sm">
           <div class="overflow-x-auto">
           <table class="w-full text-sm">
             <tbody class="divide-y divide-neutral-100">
@@ -175,10 +175,10 @@ async function saveBox(id: number) {
           </table>
           </div>
           <form class="flex flex-wrap gap-2 border-t border-neutral-100 bg-neutral-50/60 p-3" @submit.prevent="addDomain">
-            <input v-model="nd.name" placeholder="example.com" class="w-44 rounded-lg border border-neutral-300 px-3 py-1.5 text-sm" />
-            <input v-model="nd.cfAccountId" placeholder="cloudflare account id" class="w-72 rounded-lg border border-neutral-300 px-3 py-1.5 font-mono text-xs" />
-            <input v-model="nd.cfApiToken" type="password" placeholder="API token (Send Email)" class="w-56 rounded-lg border border-neutral-300 px-3 py-1.5 text-sm" />
-            <button class="rounded-lg bg-brand-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-700 active:scale-95">Add</button>
+            <input v-model="nd.name" placeholder="example.com" class="w-44 border border-neutral-300 px-3 py-1.5 text-sm" />
+            <input v-model="nd.cfAccountId" placeholder="cloudflare account id" class="w-72 border border-neutral-300 px-3 py-1.5 font-mono text-xs" />
+            <input v-model="nd.cfApiToken" type="password" placeholder="API token (Send Email)" class="w-56 border border-neutral-300 px-3 py-1.5 text-sm" />
+            <button class="bg-brand-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-700 active:scale-95">Add</button>
           </form>
         </div>
       </section>
@@ -189,7 +189,7 @@ async function saveBox(id: number) {
         <p class="mb-3 text-xs text-neutral-500">
           New users enroll their own passkey from the sign-in page (allowed until they have one).
         </p>
-        <div class="overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm">
+        <div class="overflow-hidden border border-neutral-200 bg-white shadow-sm">
           <div class="overflow-x-auto">
           <table class="w-full text-sm">
             <tbody class="divide-y divide-neutral-100">
@@ -199,7 +199,7 @@ async function saveBox(id: number) {
                   <span v-if="u.displayName" class="text-neutral-400">· {{ u.displayName }}</span>
                 </td>
                 <td class="px-4 py-2.5 text-xs">
-                  <span v-if="u.isAdmin" class="rounded bg-brand-100 px-1.5 py-0.5 font-medium text-brand-700">admin</span>
+                  <span v-if="u.isAdmin" class="bg-brand-100 px-1.5 py-0.5 font-medium text-brand-700">admin</span>
                 </td>
                 <td class="px-4 py-2.5 text-xs" :class="u.enrolled ? 'text-green-600' : 'text-amber-600'">
                   {{ u.enrolled ? `${u.passkeys} passkey(s)` : 'not enrolled' }}
@@ -213,10 +213,10 @@ async function saveBox(id: number) {
           </table>
           </div>
           <form class="flex flex-wrap items-center gap-2 border-t border-neutral-100 bg-neutral-50/60 p-3" @submit.prevent="addUser">
-            <input v-model="nu.name" placeholder="username" class="w-40 rounded-lg border border-neutral-300 px-3 py-1.5 text-sm" />
-            <input v-model="nu.displayName" placeholder="display name" class="w-44 rounded-lg border border-neutral-300 px-3 py-1.5 text-sm" />
+            <input v-model="nu.name" placeholder="username" class="w-40 border border-neutral-300 px-3 py-1.5 text-sm" />
+            <input v-model="nu.displayName" placeholder="display name" class="w-44 border border-neutral-300 px-3 py-1.5 text-sm" />
             <label class="flex items-center gap-1.5 text-sm text-neutral-600"><input v-model="nu.isAdmin" type="checkbox" class="accent-brand-600" /> admin</label>
-            <button class="rounded-lg bg-brand-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-700 active:scale-95">Add user</button>
+            <button class="bg-brand-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-700 active:scale-95">Add user</button>
           </form>
         </div>
       </section>
@@ -228,7 +228,7 @@ async function saveBox(id: number) {
           The <span class="font-medium">sender name</span> shows as the display name on outgoing mail. Each
           mailbox can also carry an HTML <span class="font-medium">footer</span> appended to every message it sends.
         </p>
-        <div class="overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-sm">
+        <div class="overflow-hidden border border-neutral-200 bg-white shadow-sm">
           <ul class="divide-y divide-neutral-100">
             <li v-for="b in boxes" :key="b.id">
               <div class="flex items-center gap-3 px-4 py-2.5 transition hover:bg-neutral-50">
@@ -241,7 +241,7 @@ async function saveBox(id: number) {
                     owner: {{ b.owner.name }}<span v-if="b.signatureHtml"> · has footer</span>
                   </div>
                 </div>
-                <button class="rounded-md px-2 py-1 text-xs text-neutral-600 transition hover:bg-neutral-100" @click="openBox(b)">
+                <button class="px-2 py-1 text-xs text-neutral-600 transition hover:bg-neutral-100" @click="openBox(b)">
                   {{ editingBox === b.id ? 'close' : 'edit' }}
                 </button>
                 <button class="text-xs text-brand-600 transition hover:underline" @click="delBox(b)">delete</button>
@@ -250,31 +250,31 @@ async function saveBox(id: number) {
                 <div v-if="editingBox === b.id" class="space-y-2 border-t border-neutral-100 bg-neutral-50/60 px-4 py-3">
                   <label class="block text-xs font-medium text-neutral-500">Sender name
                     <input v-model="eb.label" placeholder="e.g. Johan · Gaupestudio"
-                      class="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-1.5 text-sm" />
+                      class="mt-1 w-full border border-neutral-300 px-3 py-1.5 text-sm" />
                   </label>
                   <label class="block text-xs font-medium text-neutral-500">Footer HTML (appended to every send)
                     <textarea v-model="eb.signatureHtml" rows="4" placeholder="&lt;p&gt;— Johan&lt;br&gt;Gaupestudio&lt;/p&gt;"
-                      class="mt-1 w-full rounded-lg border border-neutral-300 px-3 py-1.5 font-mono text-xs" />
+                      class="mt-1 w-full border border-neutral-300 px-3 py-1.5 font-mono text-xs" />
                   </label>
-                  <button class="rounded-lg bg-brand-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-700 active:scale-95" @click="saveBox(b.id)">Save</button>
+                  <button class="bg-brand-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-700 active:scale-95" @click="saveBox(b.id)">Save</button>
                 </div>
               </Transition>
             </li>
             <li v-if="!boxes?.length" class="px-4 py-3 text-sm text-neutral-400">No mailboxes.</li>
           </ul>
           <form class="flex flex-wrap items-center gap-2 border-t border-neutral-100 bg-neutral-50/60 p-3" @submit.prevent="addBox">
-            <input v-model="nb.localPart" placeholder="hello" class="w-28 rounded-lg border border-neutral-300 px-3 py-1.5 text-sm" />
+            <input v-model="nb.localPart" placeholder="hello" class="w-28 border border-neutral-300 px-3 py-1.5 text-sm" />
             <span class="text-sm text-neutral-400">@</span>
-            <select v-model="nb.domainId" class="rounded-lg border border-neutral-300 px-2 py-1.5 text-sm">
+            <select v-model="nb.domainId" class="border border-neutral-300 px-2 py-1.5 text-sm">
               <option :value="0" disabled>domain</option>
               <option v-for="d in domains" :key="d.id" :value="d.id">{{ d.name }}</option>
             </select>
-            <select v-model="nb.userId" class="rounded-lg border border-neutral-300 px-2 py-1.5 text-sm">
+            <select v-model="nb.userId" class="border border-neutral-300 px-2 py-1.5 text-sm">
               <option :value="0" disabled>owner</option>
               <option v-for="u in users" :key="u.id" :value="u.id">{{ u.name }}</option>
             </select>
-            <input v-model="nb.label" placeholder="sender name (optional)" class="w-44 rounded-lg border border-neutral-300 px-3 py-1.5 text-sm" />
-            <button class="rounded-lg bg-brand-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-700 active:scale-95">Add mailbox</button>
+            <input v-model="nb.label" placeholder="sender name (optional)" class="w-44 border border-neutral-300 px-3 py-1.5 text-sm" />
+            <button class="bg-brand-600 px-4 py-1.5 text-sm font-medium text-white transition hover:bg-brand-700 active:scale-95">Add mailbox</button>
           </form>
         </div>
       </section>

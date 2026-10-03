@@ -171,7 +171,7 @@ const who = (m: Row) => (m.direction === 'OUTBOUND' ? `To ${m.to}` : m.fromName 
     <header class="flex items-center justify-between gap-3 border-b border-neutral-200 bg-white px-4 py-3.5 sm:px-5">
       <h1 class="truncate text-lg font-bold tracking-tight">{{ titles[filter] }}</h1>
       <button
-        class="flex items-center gap-1.5 rounded-lg border border-neutral-300 px-3 py-1.5 text-sm text-neutral-600 transition hover:bg-neutral-50 active:scale-95"
+        class="flex items-center gap-1.5 border border-neutral-300 px-3 py-1.5 text-sm text-neutral-600 transition hover:bg-neutral-50 active:scale-95"
         :disabled="pending"
         @click="refresh()"
       >
@@ -210,7 +210,7 @@ const who = (m: Row) => (m.direction === 'OUTBOUND' ? `To ${m.to}` : m.fromName 
               @click="select(m.id)"
             >
               <div class="flex items-center gap-2">
-                <span v-if="!m.read && m.direction === 'INBOUND'" class="h-2 w-2 shrink-0 rounded-full bg-brand-600" />
+                <span v-if="!m.read && m.direction === 'INBOUND'" class="h-2 w-2 shrink-0 bg-brand-600" />
                 <Icon v-if="m.starred" name="star" :size="14" :fill="true" class="shrink-0 text-brand-500" />
                 <span class="truncate text-sm" :class="{ 'font-semibold': !m.read && m.direction === 'INBOUND' }">
                   {{ who(m) }}
@@ -240,19 +240,19 @@ const who = (m: Row) => (m.direction === 'OUTBOUND' ? `To ${m.to}` : m.fromName 
           <article v-else-if="open" :key="open.id" class="mx-auto max-w-3xl px-4 py-5 sm:px-8 sm:py-8">
             <!-- action toolbar -->
             <div class="mb-5 flex flex-wrap items-center gap-1.5">
-              <button class="flex items-center gap-1.5 rounded-lg border border-neutral-300 bg-white px-3 py-1.5 text-sm font-medium transition hover:bg-neutral-50 active:scale-95" @click="startReply(false)">
+              <button class="flex items-center gap-1.5 border border-neutral-300 bg-white px-3 py-1.5 text-sm font-medium transition hover:bg-neutral-50 active:scale-95" @click="startReply(false)">
                 <Icon name="reply" :size="16" /> Reply
               </button>
-              <button class="flex items-center gap-1.5 rounded-lg border border-neutral-300 bg-white px-3 py-1.5 text-sm font-medium transition hover:bg-neutral-50 active:scale-95" @click="startReply(true)">
+              <button class="flex items-center gap-1.5 border border-neutral-300 bg-white px-3 py-1.5 text-sm font-medium transition hover:bg-neutral-50 active:scale-95" @click="startReply(true)">
                 <Icon name="reply_all" :size="16" /> <span class="hidden sm:inline">Reply all</span>
               </button>
-              <button class="flex items-center gap-1.5 rounded-lg border border-neutral-300 bg-white px-3 py-1.5 text-sm font-medium transition hover:bg-neutral-50 active:scale-95" @click="startForward">
+              <button class="flex items-center gap-1.5 border border-neutral-300 bg-white px-3 py-1.5 text-sm font-medium transition hover:bg-neutral-50 active:scale-95" @click="startForward">
                 <Icon name="forward" :size="16" /> <span class="hidden sm:inline">Forward</span>
               </button>
               <span class="mx-1 h-5 w-px bg-neutral-200" />
               <button
                 :disabled="starBusy"
-                class="flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm font-medium transition active:scale-95 disabled:opacity-60"
+                class="flex items-center gap-1.5 border px-3 py-1.5 text-sm font-medium transition active:scale-95 disabled:opacity-60"
                 :class="open.starred
                   ? 'border-brand-200 bg-brand-50 text-brand-700 hover:bg-brand-100'
                   : 'border-neutral-300 bg-white hover:bg-neutral-50'"
@@ -263,20 +263,20 @@ const who = (m: Row) => (m.direction === 'OUTBOUND' ? `To ${m.to}` : m.fromName 
               </button>
               <button
                 v-if="!open.deleted"
-                class="flex items-center gap-1.5 rounded-lg border border-neutral-300 bg-white px-3 py-1.5 text-sm font-medium transition hover:bg-neutral-50 hover:text-brand-600 active:scale-95"
+                class="flex items-center gap-1.5 border border-neutral-300 bg-white px-3 py-1.5 text-sm font-medium transition hover:bg-neutral-50 hover:text-brand-600 active:scale-95"
                 @click="trash(open.id)"
               >
                 <Icon name="delete" :size="16" /> <span class="hidden sm:inline">Trash</span>
               </button>
               <template v-else>
-                <button class="flex items-center gap-1.5 rounded-lg border border-neutral-300 bg-white px-3 py-1.5 text-sm font-medium transition hover:bg-neutral-50 active:scale-95" @click="restore(open.id)">
+                <button class="flex items-center gap-1.5 border border-neutral-300 bg-white px-3 py-1.5 text-sm font-medium transition hover:bg-neutral-50 active:scale-95" @click="restore(open.id)">
                   <Icon name="restore_from_trash" :size="16" /> Restore
                 </button>
-                <button class="flex items-center gap-1.5 rounded-lg border border-brand-200 bg-white px-3 py-1.5 text-sm font-medium text-brand-600 transition hover:bg-brand-50 active:scale-95" @click="destroy(open.id)">
+                <button class="flex items-center gap-1.5 border border-brand-200 bg-white px-3 py-1.5 text-sm font-medium text-brand-600 transition hover:bg-brand-50 active:scale-95" @click="destroy(open.id)">
                   <Icon name="delete_forever" :size="16" /> Delete forever
                 </button>
               </template>
-              <button class="ml-auto flex items-center rounded-lg p-1.5 text-neutral-400 transition hover:bg-neutral-100 lg:hidden" @click="selectedId = null">
+              <button class="ml-auto flex items-center p-1.5 text-neutral-400 transition hover:bg-neutral-100 lg:hidden" @click="selectedId = null">
                 <Icon name="close" :size="20" />
               </button>
             </div>
@@ -284,7 +284,7 @@ const who = (m: Row) => (m.direction === 'OUTBOUND' ? `To ${m.to}` : m.fromName 
             <h2 class="text-xl font-bold tracking-tight sm:text-2xl">{{ open.subject || '(no subject)' }}</h2>
 
             <div class="mt-4 flex items-center gap-3 border-b border-neutral-200 pb-5 text-sm">
-              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-brand-600 text-xs font-bold text-white">
+              <span class="flex h-9 w-9 shrink-0 items-center justify-center bg-gradient-to-br from-brand-400 to-brand-600 text-xs font-bold text-white">
                 {{ (open.fromName || open.from || '?').slice(0, 1).toUpperCase() }}
               </span>
               <div class="min-w-0">
@@ -309,7 +309,7 @@ const who = (m: Row) => (m.direction === 'OUTBOUND' ? `To ${m.to}` : m.fromName 
                 :key="a.id"
                 :href="`/api/attachments/${a.id}`"
                 download
-                class="flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-3 py-2 text-xs text-neutral-600 transition hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700"
+                class="flex items-center gap-2 border border-neutral-200 bg-white px-3 py-2 text-xs text-neutral-600 transition hover:border-brand-300 hover:bg-brand-50 hover:text-brand-700"
               >
                 <Icon name="download" :size="16" class="text-neutral-400" />
                 {{ a.filename }}

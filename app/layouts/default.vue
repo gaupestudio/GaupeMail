@@ -47,19 +47,19 @@ const initials = computed(() => {
       :class="sidebarOpen ? 'translate-x-0 shadow-2xl' : '-translate-x-full'"
     >
       <div class="flex items-center gap-2.5 px-5 pb-4 pt-5">
-        <span class="flex h-8 w-8 items-center justify-center rounded-xl bg-brand-600 text-sm font-black text-white">G</span>
+        <span class="flex h-8 w-8 items-center justify-center bg-brand-600 text-sm font-black text-white">G</span>
         <div class="leading-tight">
           <div class="text-[15px] font-bold tracking-tight">GaupeMail</div>
           <div class="truncate text-[11px] text-neutral-400">{{ orgName }}</div>
         </div>
-        <button class="ml-auto rounded-md p-1 text-neutral-400 hover:bg-neutral-100 lg:hidden" @click="sidebarOpen = false">
+        <button class="ml-auto p-1 text-neutral-400 hover:bg-neutral-100 lg:hidden" @click="sidebarOpen = false">
           <Icon name="close" :size="20" />
         </button>
       </div>
 
       <div class="px-3 pb-2">
         <button
-          class="flex w-full items-center justify-center gap-2 rounded-xl bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm shadow-brand-600/20 transition hover:bg-brand-700 hover:shadow-md active:scale-[0.98]"
+          class="flex w-full items-center justify-center gap-2 bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm shadow-brand-600/20 transition hover:bg-brand-700 hover:shadow-md active:scale-[0.98]"
           @click="compose(); sidebarOpen = false"
         >
           <Icon name="edit_square" :size="18" />
@@ -71,7 +71,7 @@ const initials = computed(() => {
         <button
           v-for="item in nav"
           :key="item.key"
-          class="relative flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm transition"
+          class="relative flex w-full items-center gap-3 px-3 py-2 text-sm transition"
           :class="route.path === '/' && filter === item.key
             ? 'bg-brand-50 font-semibold text-brand-700'
             : 'text-neutral-600 hover:bg-neutral-100'"
@@ -79,20 +79,20 @@ const initials = computed(() => {
         >
           <span
             v-if="route.path === '/' && filter === item.key"
-            class="absolute left-0 top-1.5 bottom-1.5 w-1 rounded-r-full bg-brand-600"
+            class="absolute left-0 top-1.5 bottom-1.5 w-1 bg-brand-600"
           />
           <Icon :name="item.icon" :size="20" :fill="route.path === '/' && filter === item.key" />
           <span class="flex-1 text-left">{{ item.label }}</span>
           <span
             v-if="item.key === 'inbox' && activeMailbox?.unread"
-            class="rounded-full bg-brand-600 px-1.5 text-[11px] font-semibold text-white"
+            class="bg-brand-600 px-1.5 text-[11px] font-semibold text-white"
           >{{ activeMailbox.unread }}</span>
         </button>
 
         <NuxtLink
           v-if="user?.isAdmin"
           to="/settings"
-          class="mt-2 flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm transition"
+          class="mt-2 flex w-full items-center gap-3 px-3 py-2 text-sm transition"
           :class="route.path.startsWith('/settings')
             ? 'bg-brand-50 font-semibold text-brand-700'
             : 'text-neutral-600 hover:bg-neutral-100'"
@@ -107,7 +107,7 @@ const initials = computed(() => {
         <Transition name="pop">
           <div
             v-if="acctOpen"
-            class="absolute inset-x-2 bottom-full mb-2 overflow-hidden rounded-xl border border-neutral-200 bg-white shadow-xl"
+            class="absolute inset-x-2 bottom-full mb-2 overflow-hidden border border-neutral-200 bg-white shadow-xl"
           >
             <div class="px-3 py-2 text-[11px] font-semibold uppercase tracking-wide text-neutral-400">Switch mailbox</div>
             <button
@@ -121,7 +121,7 @@ const initials = computed(() => {
                 <span class="block truncate font-medium">{{ b.label || b.address }}</span>
                 <span class="block truncate text-xs text-neutral-400">{{ b.address }}</span>
               </span>
-              <span v-if="b.unread" class="rounded-full bg-brand-600 px-1.5 text-[11px] text-white">{{ b.unread }}</span>
+              <span v-if="b.unread" class="bg-brand-600 px-1.5 text-[11px] text-white">{{ b.unread }}</span>
               <Icon v-else-if="b.id === activeMailbox?.id" name="check" :size="16" />
             </button>
             <div class="border-t border-neutral-100">
@@ -133,10 +133,10 @@ const initials = computed(() => {
         </Transition>
 
         <button
-          class="flex w-full items-center gap-2.5 rounded-lg px-2 py-2 text-left transition hover:bg-neutral-100"
+          class="flex w-full items-center gap-2.5 px-2 py-2 text-left transition hover:bg-neutral-100"
           @click="acctOpen = !acctOpen"
         >
-          <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 to-brand-700 text-xs font-bold text-white">
+          <span class="flex h-8 w-8 shrink-0 items-center justify-center bg-gradient-to-br from-brand-500 to-brand-700 text-xs font-bold text-white">
             {{ initials }}
           </span>
           <span class="min-w-0 flex-1">
@@ -152,12 +152,12 @@ const initials = computed(() => {
     <div class="relative flex min-w-0 flex-1 flex-col">
       <!-- mobile top bar -->
       <div class="flex items-center gap-2 border-b border-neutral-200 bg-white px-3 py-2.5 lg:hidden">
-        <button class="rounded-md p-1.5 text-neutral-600 hover:bg-neutral-100" @click="sidebarOpen = true">
+        <button class="p-1.5 text-neutral-600 hover:bg-neutral-100" @click="sidebarOpen = true">
           <Icon name="menu" :size="22" />
         </button>
         <span class="text-sm font-bold">GaupeMail</span>
         <button
-          class="ml-auto flex items-center gap-1 rounded-lg bg-brand-600 px-3 py-1.5 text-sm font-medium text-white active:scale-95"
+          class="ml-auto flex items-center gap-1 bg-brand-600 px-3 py-1.5 text-sm font-medium text-white active:scale-95"
           @click="compose()"
         >
           <Icon name="edit_square" :size="16" /> New

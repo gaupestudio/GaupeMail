@@ -8,6 +8,11 @@ const { locale, locales, setLocale } = useI18n();
 const menuOpen = ref(false);
 watch(filter, () => (menuOpen.value = false));
 
+// dot on the avatar when a different mailbox has unread mail
+const otherUnread = computed(() =>
+  mailboxes.value.some((b) => b.id !== activeMailbox.value?.id && (b.unread || b.spamUnread)),
+);
+
 const initials = computed(() => {
   const n = user.value?.displayName || user.value?.name || '?';
   return n.split(/[\s._-]+/).filter(Boolean).slice(0, 2).map((s) => s[0]!.toUpperCase()).join('');
@@ -33,8 +38,11 @@ const initials = computed(() => {
             <span class="block truncate font-medium">{{ b.label || b.address }}</span>
             <span class="block truncate text-xs text-neutral-400">{{ b.address }}</span>
           </span>
-          <span v-if="b.unread" class="bg-brand-600 px-1.5 text-[11px] text-white">{{ b.unread }}</span>
-          <Icon v-else-if="b.id === activeMailbox?.id" name="check" :size="16" />
+          <span class="flex shrink-0 items-center gap-1">
+            <span v-if="b.unread" class="bg-brand-600 px-1.5 text-[11px] text-white" :title="$t('nav.inbox')">{{ b.unread }}</span>
+            <span v-if="b.spamUnread" class="bg-red-600 px-1.5 text-[11px] text-white" :title="$t('nav.spam')">{{ b.spamUnread }}</span>
+            <Icon v-if="!b.unread && !b.spamUnread && b.id === activeMailbox?.id" name="check" :size="16" />
+          </span>
         </button>
         <div class="border-t border-neutral-100">
           <label class="flex items-center gap-2 px-3 py-2 text-sm text-neutral-600">
@@ -59,8 +67,9 @@ const initials = computed(() => {
       class="flex w-full items-center gap-2.5 px-2 py-2 text-left transition hover:bg-neutral-100"
       @click="menuOpen = !menuOpen"
     >
-      <span class="flex h-8 w-8 shrink-0 items-center justify-center bg-gradient-to-br from-brand-500 to-brand-700 text-xs font-bold text-white">
+      <span class="relative flex h-8 w-8 shrink-0 items-center justify-center bg-gradient-to-br from-brand-500 to-brand-700 text-xs font-bold text-white">
         {{ initials }}
+        <span v-if="otherUnread" class="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full border-2 border-white bg-red-600" />
       </span>
       <span class="min-w-0 flex-1">
         <span class="block truncate text-sm font-medium">{{ user?.displayName || user?.name }}</span>

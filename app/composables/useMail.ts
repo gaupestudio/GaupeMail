@@ -8,6 +8,7 @@ export interface Mailbox {
   domain: string;
   owner: { id: number; name: string };
   unread: number;
+  spamUnread: number;
 }
 
 // one row in the message list (GET /api/mails)

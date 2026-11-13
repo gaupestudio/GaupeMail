@@ -10,9 +10,17 @@ export default defineEventHandler(async (event) => {
     include: {
       domain: { select: { name: true } },
       user: { select: { id: true, name: true } },
-      _count: { select: { mails: { where: { direction: 'INBOUND', read: false, spam: false, deletedAt: null } } } },
     },
   });
+
+  // unread counts per mailbox, split into inbox (not spam) and spam
+  const grouped = await prisma.mail.groupBy({
+    by: ['mailboxId', 'spam'],
+    where: { mailboxId: { in: boxes.map((b) => b.id) }, direction: 'INBOUND', read: false, deletedAt: null },
+    _count: { _all: true },
+  });
+  const unreadOf = (id: number, spam: boolean) =>
+    grouped.find((g) => g.mailboxId === id && g.spam === spam)?._count._all ?? 0;
 
   return boxes.map((b) => ({
     id: b.id,
@@ -21,6 +29,7 @@ export default defineEventHandler(async (event) => {
     signatureHtml: b.signatureHtml,
     domain: b.domain.name,
     owner: b.user,
-    unread: b._count.mails,
+    unread: unreadOf(b.id, false),
+    spamUnread: unreadOf(b.id, true),
   }));
 });

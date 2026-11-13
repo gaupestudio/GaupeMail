@@ -20,6 +20,8 @@ const nav: { key: MailFilter; icon: string }[] = [
 ];
 
 const isActive = (f: MailFilter) => route.path === '/' && filter.value === f;
+const badge = (f: MailFilter) =>
+  f === 'inbox' ? activeMailbox.value?.unread : f === 'spam' ? activeMailbox.value?.spamUnread : 0;
 const onSettings = computed(() => route.path.startsWith('/settings'));
 
 function go(f: MailFilter) {
@@ -74,9 +76,10 @@ function go(f: MailFilter) {
         <Icon :name="item.icon" :size="20" :fill="isActive(item.key)" />
         <span class="flex-1 text-left">{{ $t(`nav.${item.key}`) }}</span>
         <span
-          v-if="item.key === 'inbox' && activeMailbox?.unread"
-          class="bg-brand-600 px-1.5 text-[11px] font-semibold text-white"
-        >{{ activeMailbox.unread }}</span>
+          v-if="badge(item.key)"
+          class="px-1.5 text-[11px] font-semibold text-white"
+          :class="item.key === 'spam' ? 'bg-red-600' : 'bg-brand-600'"
+        >{{ badge(item.key) }}</span>
       </button>
 
       <NuxtLink
